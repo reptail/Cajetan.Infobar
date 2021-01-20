@@ -1,0 +1,26 @@
+# Cajetan Infobar
+AppBar docked to the bottom of the screen, just above the Taskbar. 
+
+NOTE, does not know how it behaves if Taskbar is docked to any other edge then bottom.
+
+## Usage
+Place the EXE in any directory on your machine, and run.
+It saves user settings in 'AppData\Roaming\Cajetan.Infobar'.
+
+## Screenshot
+Example of how it looks with all modules enabled. 
+
+NOTE, since I took the screenshot on at desktop machine, it shows 'No Battery'. 
+If battery is present, it will show percentage, charging state or estimated time remaining in battery.
+
+![Cajetan Infobar - Screenshot](https://github.com/reptail/Cajetan.Infobar/raw/master/Images/InfobarScreenshot.png "Cajetan Infobar - Screenshot")
+
+## Building
+Code should build out of the box, with the .NET5 SDK installed.
+
+Run the following from the root of the repostitory, and you get a single EXE output in the Publish folder.
+
+```
+dotnet build -c Release
+dotnet publish -c Release -o ./Publish --self-contained true .\Cajetan.Infobar\Cajetan.Infobar.csproj
+```
