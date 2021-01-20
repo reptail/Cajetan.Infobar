@@ -29,13 +29,13 @@ namespace Cajetan.Infobar
         public void DockBottom()
         {
             _appbarEdge = appbar.ABEdge.Bottom;
-            appbar.AppBarFunctions.SetAppBar(this, _appbarEdge);
+            appbar.AppBarFunctions.SetAppBar(this, _appbarEdge, topMost: false);
         }
 
         public void Undock()
         {
             _appbarEdge = appbar.ABEdge.None;
-            appbar.AppBarFunctions.SetAppBar(this, _appbarEdge);
+            appbar.AppBarFunctions.SetAppBar(this, _appbarEdge, topMost: false);
         }
 
         public void Reset()
@@ -43,14 +43,13 @@ namespace Cajetan.Infobar
             if (_appbarEdge == appbar.ABEdge.None) 
                 return;
 
-
-            appbar.AppBarFunctions.SetAppBar(this, appbar.ABEdge.None);
+            appbar.AppBarFunctions.SetAppBar(this, appbar.ABEdge.None, topMost: false);
             Visibility = Visibility.Hidden;
 
             Thread.Sleep(50);
 
             Visibility = Visibility.Visible;
-            appbar.AppBarFunctions.SetAppBar(this, _appbarEdge);
+            appbar.AppBarFunctions.SetAppBar(this, _appbarEdge, topMost: false);
 
         }
 
@@ -75,8 +74,6 @@ namespace Cajetan.Infobar
 
             // Dock
             _mainViewModel.Dock();
-
-            // Show
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
