@@ -1,0 +1,194 @@
+﻿<UserControl x:Class="Cajetan.Infobar.Views.OptionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="600"
+             Padding="5" Background="{StaticResource BackgroundColor}" Foreground="{StaticResource ForegroundColor}"
+             d:DataContext="{Binding OptionsViewModel, Source={StaticResource DesignViewModelLocator}}"
+             x:Name="optionsView">
+    <!--
+    xmlns:wpftool="http://schemas.xceed.com/wpf/xaml/toolkit"
+    -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="GENERAL" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" />
+
+                <Grid Grid.Row="1"  Margin="10,0,0,0">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.Resources>
+                        <!--<Style TargetType="{x:Type wpftool:ColorPicker}">
+                            <Setter Property="ColorMode" Value="ColorCanvas" />
+                            <Setter Property="UsingAlphaChannel" Value="False" />
+                            <Setter Property="Margin" Value="5 5" />
+                        </Style>-->
+                    </Grid.Resources>
+
+                    <TextBlock Grid.Row="0" VerticalAlignment="Center" Text="Background Color"/>
+                    <!--<wpftool:ColorPicker Grid.Row="0" Grid.Column="1" SelectedColor="{Binding BackgroundColor}" />-->
+
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="Foreground Color" />
+                    <!--<wpftool:ColorPicker Grid.Row="1" Grid.Column="1" SelectedColor="{Binding ForegroundColor}" />-->
+
+                    <TextBlock Grid.Row="2" VerticalAlignment="Center" Text="Border Color"/>
+                    <!--<wpftool:ColorPicker Grid.Row="2" Grid.Column="1" SelectedColor="{Binding BorderColor}" />-->
+
+                    <TextBlock Grid.Row="3" VerticalAlignment="Center" Text="Update Interval"/>
+                    <Slider Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                            Minimum="500" Maximum="2500" TickFrequency="100" Interval="100" IsSnapToTickEnabled="True" 
+                            Margin="5 3" Value="{Binding UpdateInterval}" />
+                    <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Text="{Binding UpdateInterval, StringFormat=0 ms}" />
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock TextWrapping="Wrap" Text="MODULES" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" />
+
+                <Grid Grid.Row="1" Margin="10 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox ItemsSource="{Binding ModuleOptions}" SelectedItem="{Binding SelectedModuleOption}"
+                             HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                             BorderThickness="0" Margin="0 0 5 0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5" Height="Auto">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <!--<Image Grid.RowSpan="3" Source="{Binding ModuleType, Converter={StaticResource ModuleTypeToImageResourceConverter}, ConverterParameter=24}" Width="24" HorizontalAlignment="Left" />-->
+
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding DisplayName}" FontSize="13" FontWeight="SemiBold" />
+                                    <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Description}" FontStyle="Italic" TextWrapping="Wrap" />
+                                    <TextBlock Grid.Column="2" Grid.Row="0" FontSize="11" HorizontalAlignment="Right">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsEnabled}" Value="True">
+                                                        <Setter  Property="Text" Value="Enabled" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Grid Grid.Column="1">
+                        <Border BorderThickness="0 0 1 0" BorderBrush="{StaticResource BorderBrush}" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                    </Grid>
+                    
+                    <Grid Grid.Column="2" Margin="5 0" DataContext="{Binding SelectedModuleOption}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" FontSize="15" FontWeight="SemiBold" Margin="0 5" Text="{Binding DisplayName}"
+                                       VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="1" Grid.ColumnSpan="3" Margin="10 0 0 5" Content="Enabled" IsChecked="{Binding IsEnabled}"
+                                      VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="5 0"
+                                       Text="Move Module" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5 0"
+                                    Width="24" Height="22" Command="{Binding DataContext.MoveUpCommand, ElementName=optionsView}" CommandParameter="{Binding}">
+                                <!--<Image Source="/Cajetan.Infobar;component/Resources/Images/black_up_8.png" Width="8" />-->
+                            </Button>
+                            <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5 0"
+                                    Width="24" Height="22" Command="{Binding DataContext.MoveDownCommand, ElementName=optionsView}" CommandParameter="{Binding}">
+                                <!--<Image Source="/Cajetan.Infobar;component/Resources/Images/black_down_8.png" Width="8" />-->
+                            </Button>
+                        </Grid>
+
+                        <Border Grid.Row="1" Height="1" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0 1 0 0" />
+
+                        <ContentPresenter Grid.Row="2" DataContext="{Binding}" Content="{Binding}" IsEnabled="{Binding IsEnabled}" Margin="0 5 0 0" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="1" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0 1 0 0">
+            
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Width" Value="76" />
+                        <Setter Property="Height" Value="26" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Margin" Value="5 0 5 0" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button Content="Cancel" IsCancel="True" />
+                <Button Content="Apply" Command="{Binding ApplyCommand}" />
+                <Button Content="Save" Command="{Binding SaveCommand}" IsDefault="True" />
+            </StackPanel>
+            
+        </Border>
+        
+    </Grid>
+</UserControl>

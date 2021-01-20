@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Cajetan.Infobar.Views.ProcessorUsageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Cajetan.Infobar.Views"
+             mc:Ignorable="d" d:DesignHeight="23" Margin="5 0 5 0"
+             d:DataContext="{Binding ProcessorUsageViewModel, Source={StaticResource DesignViewModelLocator}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="18" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="75"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1 1 1 0"
+               Source="{Binding ModuleType, Converter={StaticResource ModuleTypeToImageResourceConverter}, ConverterParameter=24}" />
+
+        <TextBlock Grid.Column="1" Text="CPU:" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="2" Name="txtValue" Text="{Binding Usage, FallbackValue='100%'}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <local:LineGraph Grid.Column="3" Tag="CPU" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                         LineThickness="0.75" BottomMargin="2" TopMargin="2" Values="{Binding Values}" />
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:Cajetan.Infobar.Converters"
+                    xmlns:d="clr-namespace:Cajetan.Infobar.Design">
+
+    <!-- Misc -->
+    <d:DesignViewModelLocator x:Key="DesignViewModelLocator" />
+
+    <!-- Converters -->
+    <c:HexToBrushConverter x:Key="HexToBrushConverter" />
+    <c:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    <c:ModuleTypeToImageResourceConverter x:Key="ModuleTypeToImageResourceConverter" />
+
+    <!-- Color definitions -->
+    <SolidColorBrush x:Key="BackgroundColor">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundColor">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderBrush">#828790</SolidColorBrush>
+
+</ResourceDictionary>

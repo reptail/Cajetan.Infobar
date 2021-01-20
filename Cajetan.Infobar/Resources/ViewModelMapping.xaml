@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:Cajetan.Infobar.ViewModels;assembly=Cajetan.Infobar.ViewModels"
+                    xmlns:v="clr-namespace:Cajetan.Infobar.Views">
+    
+    <!-- Definitions for mapping a module's ViewModel to correct View -->
+    <DataTemplate DataType="{x:Type vm:BatteryStatusViewModel}">
+        <v:BatteryStatusView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:MemoryUsageViewModel}">
+        <v:MemoryUsageView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:NetworkUsageViewModel}">
+        <v:NetworkUsageView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProcessorUsageViewModel}">
+        <v:ProcessorUsageView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:UptimeViewModel}">
+        <v:UptimeView />
+    </DataTemplate>
+
+
+    <DataTemplate DataType="{x:Type vm:OptionsViewModel}">
+        <v:OptionsView />
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:BatteryStatusOptionsViewModel}">
+        <v:BatteryStatusOptionsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:MemoryUsageOptionsViewModel}">
+        <v:MemoryUsageOptionsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:NetworkUsageOptionsViewModel}">
+        <v:NetworkUsageOptionsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProcessorUsageOptionsViewModel}">
+        <v:ProcessorUsageOptionsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:UptimeOptionsViewModel}">
+        <v:UptimeOptionsView />
+    </DataTemplate>
+
+    
+</ResourceDictionary>
