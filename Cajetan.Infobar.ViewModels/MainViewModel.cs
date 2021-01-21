@@ -19,25 +19,25 @@ namespace Cajetan.Infobar.ViewModels
         private readonly ISystemInfoService _systemInfoService;
         private readonly OptionsViewModel _optionsViewModel;
 
-        private Timer _timer;
+        private readonly Timer _timer;
 
         private string _backgroundColor = "#000";
         private string _foregroundColor = "#FFF";
         private string _borderColor = "#000";
 
-        private ModuleViewModelBase[] _availableModules;
+        private readonly ModuleViewModelBase[] _availableModules;
         private ObservableCollection<ModuleViewModelBase> _activeModules;
 
 
         public MainViewModel(IAppBarController appBar, ISettingsService settings, IWindowService windowService, ISystemInfoService systemInfoService,
                              OptionsViewModel optionsViewModel, ModuleViewModelBase[] availableModules)
         {
-            _appBar = appBar;
-            _settingsService = settings;
-            _windowService = windowService;
-            _systemInfoService = systemInfoService;
-            _optionsViewModel = optionsViewModel;
-            _availableModules = availableModules;
+            _appBar = appBar ?? throw new ArgumentNullException(nameof(appBar));
+            _settingsService = settings ?? throw new ArgumentNullException(nameof(settings));
+            _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
+            _systemInfoService = systemInfoService ?? throw new ArgumentNullException(nameof(systemInfoService));
+            _optionsViewModel = optionsViewModel ?? throw new ArgumentNullException(nameof(optionsViewModel));
+            _availableModules = availableModules ?? Array.Empty<ModuleViewModelBase>();
 
             ResetCommand = new RelayCommand(Reset);
             DockCommand = new RelayCommand(Dock);
@@ -108,6 +108,8 @@ namespace Cajetan.Infobar.ViewModels
         {
             // Stop timer
             _timer.Stop();
+            _timer.Elapsed -= Timer_Elapsed;
+            _timer.Dispose();
 
             // Unregister AppBar
             _appBar.Undock();

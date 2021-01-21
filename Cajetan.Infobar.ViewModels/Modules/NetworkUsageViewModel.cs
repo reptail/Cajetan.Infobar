@@ -38,9 +38,6 @@ namespace Cajetan.Infobar.ViewModels
 
             if (_settingsService.Contains("Module_Network_SortOrder"))
                 SortOrder = _settingsService.Get<int>("Module_Network_SortOrder");
-
-            //if (_settingsService.Contains("Module_Network_DisplayFormat"))
-            //    _displayFormat = _settingsService.Get<NetworkDisplayFormat>("Module_Network_DisplayFormat");
         }
 
         public override void RefreshData()
