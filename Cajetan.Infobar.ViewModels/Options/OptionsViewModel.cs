@@ -1,9 +1,8 @@
-using Cajetan.Infobar.Domain.Services;
+﻿using Cajetan.Infobar.Domain.Services;
 using Cajetan.Infobar.Domain.ViewModels;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -12,12 +11,13 @@ namespace Cajetan.Infobar.ViewModels
 {
     public class OptionsViewModel : ObservableObject, IWindowViewModel
     {
-        private enum MoveDirection { None, Up, Down }
+        private enum EMoveDirection { None, Up, Down }
 
         private readonly ISettingsService _settingsService;
         private readonly IWindowService _windowService;
 
-        private readonly ObservableCollection<ModuleOptionsViewModelBase> _moduleOptions;
+        private readonly ModuleOptionsViewModelBase[] _availableModules;
+        private ObservableCollection<ModuleOptionsViewModelBase> _moduleOptions;
 
         private string _backgroundColor;
         private string _foregroundColor;
@@ -29,18 +29,18 @@ namespace Cajetan.Infobar.ViewModels
 
         public OptionsViewModel(ISettingsService settingsService, IWindowService windowService, ModuleOptionsViewModelBase[] availableModules)
         {
-            //DisplayName = "Cajetan Infobar - Options";
-
             _settingsService = settingsService;
             _windowService = windowService;
 
-            _moduleOptions = availableModules is null
-                ? new ObservableCollection<ModuleOptionsViewModelBase>()
-                : new ObservableCollection<ModuleOptionsViewModelBase>(availableModules.OrderBy(m => m.SortOrder));
-            _selectedModuleOption = _moduleOptions.FirstOrDefault();
+            _availableModules = availableModules ?? Array.Empty<ModuleOptionsViewModelBase>();
+            _selectedModuleOption = availableModules?.FirstOrDefault();
 
-            MoveUpCommand = new RelayCommand<ModuleOptionsViewModelBase>(param => MoveElement(param, MoveDirection.Up));
-            MoveDownCommand = new RelayCommand<ModuleOptionsViewModelBase>(param => MoveElement(param, MoveDirection.Down));
+            SelectBackgroundColorCommand = new RelayCommand(() => SelectColor("Select Background Color", BackgroundColor, c => BackgroundColor = c));
+            SelectForegroundColorCommand = new RelayCommand(() => SelectColor("Select Foreground Color", ForegroundColor, c => ForegroundColor = c));
+            SelectBorderColorCommand = new RelayCommand(() => SelectColor("Select Border Color", BorderColor, c => BorderColor = c));
+
+            MoveUpCommand = new RelayCommand<ModuleOptionsViewModelBase>(param => MoveElement(param, EMoveDirection.Up));
+            MoveDownCommand = new RelayCommand<ModuleOptionsViewModelBase>(param => MoveElement(param, EMoveDirection.Down));
 
             SaveCommand = new RelayCommand(Save);
             ApplyCommand = new RelayCommand(Apply);
@@ -54,8 +54,13 @@ namespace Cajetan.Infobar.ViewModels
 
         public string DisplayName { get; } = "Cajetan Infobar - Options";
 
+        public ICommand SelectBackgroundColorCommand { get; }
+        public ICommand SelectForegroundColorCommand { get; }
+        public ICommand SelectBorderColorCommand { get; }
+
         public ICommand MoveUpCommand { get; }
         public ICommand MoveDownCommand { get; }
+
         public ICommand SaveCommand { get; }
         public ICommand ApplyCommand { get; }
         public ICommand CancelCommand { get; }
@@ -84,7 +89,11 @@ namespace Cajetan.Infobar.ViewModels
             set => SetProperty(ref _updateInterval, value);
         }
 
-        public ObservableCollection<ModuleOptionsViewModelBase> ModuleOptions => _moduleOptions;
+        public ObservableCollection<ModuleOptionsViewModelBase> ModuleOptions
+        {
+            get => _moduleOptions;
+            set => SetProperty(ref _moduleOptions, value);
+        }
 
         public ModuleOptionsViewModelBase SelectedModuleOption
         {
@@ -94,15 +103,12 @@ namespace Cajetan.Infobar.ViewModels
 
         public void Update()
         {
-            //modules.Add(_viewModelLocator.BatteryStatusOptionsViewModel);
-            //modules.Add(_viewModelLocator.MemoryUsageOptionsViewModel);
-            //modules.Add(_viewModelLocator.NetworkUsageOptionsViewModel);
-            //modules.Add(_viewModelLocator.ProcessorUsageOptionsViewModel);
-            //modules.Add(_viewModelLocator.UptimeOptionsViewModel);
-
             // Update modules
-            foreach (ModuleOptionsViewModelBase module in ModuleOptions)
+            foreach (ModuleOptionsViewModelBase module in _availableModules)
                 module.Update();
+
+            ModuleOptions = new ObservableCollection<ModuleOptionsViewModelBase>(_availableModules.OrderBy(m => m.SortOrder));
+            SelectedModuleOption = ModuleOptions?.FirstOrDefault();
 
             // Load general settings
             if (_settingsService.Contains("General_BackgroundColor"))
@@ -118,7 +124,13 @@ namespace Cajetan.Infobar.ViewModels
                 UpdateInterval = _settingsService.Get<int>("General_RefreshInterval_Milliseconds");
         }
 
-        private void MoveElement(ModuleOptionsViewModelBase element, MoveDirection direction)
+        private void SelectColor(string title, string currentColor, Action<string> fieldAssignment)
+        {
+            string newColor = _windowService.ShowColorDialog(title, currentColor);
+            fieldAssignment(newColor);
+        }
+
+        private void MoveElement(ModuleOptionsViewModelBase element, EMoveDirection direction)
         {
             if (element is null) return;
 
@@ -126,12 +138,12 @@ namespace Cajetan.Infobar.ViewModels
             if (currentIndex == -1) return;
 
             bool movedAny = false;
-            if (direction == MoveDirection.Up && currentIndex != 0)
+            if (direction == EMoveDirection.Up && currentIndex != 0)
             {
                 ModuleOptions.Move(currentIndex, currentIndex - 1);
                 movedAny = true;
             }
-            else if (direction == MoveDirection.Down && currentIndex != (ModuleOptions.Count - 1))
+            else if (direction == EMoveDirection.Down && currentIndex != (ModuleOptions.Count - 1))
             {
                 ModuleOptions.Move(currentIndex, currentIndex + 1);
                 movedAny = true;
