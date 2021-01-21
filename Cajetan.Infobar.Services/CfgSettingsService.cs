@@ -52,10 +52,20 @@ namespace Cajetan.Infobar.Services
             SetDefault("General_RefreshInterval_Milliseconds", 500);
 
             // Modules
+            SetDefault("Module_Uptime_IsEnabled", true);
+            SetDefault("Module_Uptime_SortOrder", 1);
+            SetDefault("Module_Uptime_ShowText", true);
+            SetDefault("Module_Uptime_ShowDays", false);
+
             SetDefault("Module_Battery_IsEnabled", false);
             SetDefault("Module_Battery_SortOrder", 2);
             SetDefault("Module_Battery_ShowText", true);
             SetDefault("Module_Battery_ShowTime", true);
+
+            SetDefault("Module_Processor_IsEnabled", true);
+            SetDefault("Module_Processor_SortOrder", 3);
+            SetDefault("Module_Processor_ShowText", true);
+            SetDefault("Module_Processor_ShowGraph", true);
 
             SetDefault("Module_Memory_IsEnabled", true);
             SetDefault("Module_Memory_SortOrder", 4);
@@ -65,16 +75,6 @@ namespace Cajetan.Infobar.Services
             SetDefault("Module_Network_IsEnabled", true);
             SetDefault("Module_Network_SortOrder", 5);
             SetDefault("Module_Network_DisplayFormat", ENetworkDisplayFormat.Auto);
-
-            SetDefault("Module_Processor_IsEnabled", true);
-            SetDefault("Module_Processor_SortOrder", 3);
-            SetDefault("Module_Processor_ShowText", true);
-            SetDefault("Module_Processor_ShowGraph", true);
-
-            SetDefault("Module_Uptime_IsEnabled", true);
-            SetDefault("Module_Uptime_SortOrder", 1);
-            SetDefault("Module_Uptime_ShowText", true);
-            SetDefault("Module_Uptime_ShowDays", false);
         }
 
         private void SetDefault<T>(string key, T value)
