@@ -54,15 +54,15 @@ namespace Cajetan.Infobar.Config
                 .SingleInstance();
 
             cb.RegisterType<OptionsViewModel>();
+            cb.RegisterType<UptimeOptionsViewModel>()
+                .As<ModuleOptionsViewModelBase>();
             cb.RegisterType<BatteryStatusOptionsViewModel>()
+                .As<ModuleOptionsViewModelBase>();
+            cb.RegisterType<ProcessorUsageOptionsViewModel>()
                 .As<ModuleOptionsViewModelBase>();
             cb.RegisterType<MemoryUsageOptionsViewModel>()
                 .As<ModuleOptionsViewModelBase>();
             cb.RegisterType<NetworkUsageOptionsViewModel>()
-                .As<ModuleOptionsViewModelBase>();
-            cb.RegisterType<ProcessorUsageOptionsViewModel>()
-                .As<ModuleOptionsViewModelBase>();
-            cb.RegisterType<UptimeOptionsViewModel>()
                 .As<ModuleOptionsViewModelBase>();
         }
 

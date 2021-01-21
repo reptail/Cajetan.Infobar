@@ -1,4 +1,5 @@
-﻿using Cajetan.Infobar.Domain.Services;
+using Cajetan.Infobar.Domain.Services;
+using Cajetan.Infobar.Domain.ViewModels;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace Cajetan.Infobar.ViewModels
 {
-    public class OptionsViewModel : ObservableObject
+    public class OptionsViewModel : ObservableObject, IWindowViewModel
     {
         private enum MoveDirection { None, Up, Down }
 
@@ -50,6 +51,8 @@ namespace Cajetan.Infobar.ViewModels
             BorderColor = "#FF5E6F7F";
             UpdateInterval = 500;
         }
+
+        public string DisplayName { get; } = "Cajetan Infobar - Options";
 
         public ICommand MoveUpCommand { get; }
         public ICommand MoveDownCommand { get; }

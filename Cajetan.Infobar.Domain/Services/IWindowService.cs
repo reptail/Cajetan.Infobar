@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using Cajetan.Infobar.Domain.ViewModels;
 
 namespace Cajetan.Infobar.Domain.Services
 {
@@ -6,15 +6,17 @@ namespace Cajetan.Infobar.Domain.Services
     {
         bool Alert(string title, string message);
 
-        bool? OpenDialog(ObservableObject viewModel);
-        bool? OpenDialog(ObservableObject viewModel, bool allowResize);
-        bool? OpenDialog(ObservableObject viewModel, bool allowResize, double? width, double? height);
+        string ShowColorDialog(string title, string currentColorHex);
 
-        void OpenWindow(ObservableObject viewModel);
-        void OpenWindow(ObservableObject viewModel, bool allowResize);
-        void OpenWindow(ObservableObject viewModel, bool allowResize, double? width, double? height);
+        bool? OpenDialog(IWindowViewModel viewModel);
+        bool? OpenDialog(IWindowViewModel viewModel, bool allowResize);
+        bool? OpenDialog(IWindowViewModel viewModel, bool allowResize, double? width, double? height);
 
-        void CloseWindow(ObservableObject viewModel);
-        void CloseWindow(ObservableObject viewModel, bool result);
+        void OpenWindow(IWindowViewModel viewModel);
+        void OpenWindow(IWindowViewModel viewModel, bool allowResize);
+        void OpenWindow(IWindowViewModel viewModel, bool allowResize, double? width, double? height);
+
+        void CloseWindow(IWindowViewModel viewModel);
+        void CloseWindow(IWindowViewModel viewModel, bool result);
     }
 }
