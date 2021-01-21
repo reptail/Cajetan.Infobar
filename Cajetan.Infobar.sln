@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cajetan.Infobar", "Cajetan.Infobar\Cajetan.Infobar.csproj", "{8DD842DE-82F7-40BC-BD4B-53C4ACD56AF3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{CD7E198A-907F-417A-B3C2-CB3449E342A1}"
-	ProjectSection(SolutionItems) = preProject
-		Libraries\WpfAppBar.dll = Libraries\WpfAppBar.dll
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cajetan.Infobar.Domain", "Cajetan.Infobar.Domain\Cajetan.Infobar.Domain.csproj", "{BC3B06B1-6F3D-4F32-961A-3D6F1A0F5FAD}"
 EndProject

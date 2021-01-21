@@ -5,8 +5,8 @@ namespace Cajetan.Infobar.ViewModels
 {
     public class UptimeViewModel : ModuleViewModelBase
     {
-        private ISettingsService _settingsService;
-        private ISystemInfoService _systemInfoService;
+        private readonly ISettingsService _settingsService;
+        private readonly ISystemInfoService _systemInfoService;
 
         private bool _showDays;
         private string _uptime;

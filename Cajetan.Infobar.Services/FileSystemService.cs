@@ -39,7 +39,7 @@ namespace Cajetan.Infobar.Services
         {
             if (!File.Exists(originalPath)) return;
 
-            File.Copy(originalPath, targetPath);
+            File.Copy(originalPath, targetPath, true);
         }
 
         public string Read(string path)

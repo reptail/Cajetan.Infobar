@@ -19,12 +19,8 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="WpfAppBar">
-      <HintPath>..\Libraries\WpfAppBar.dll</HintPath>
-    </Reference>
+    <PackageReference Include="WpfAppBar" Version="3.0.0" />
+    <PackageReference Include="TAlex.WPF.Controls" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
