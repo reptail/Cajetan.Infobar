@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Domain.Models;
+using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 using System.Collections.ObjectModel;
 
@@ -7,16 +7,16 @@ namespace Cajetan.Infobar.ViewModels
     public class ProcessorUsageViewModel : ModuleViewModelBase
     {
         private readonly ISettingsService _settingsService;
-        private readonly ISystemInfoService _systemInfoService;
+        private readonly ISystemMonitorService _systemMonitorService;
 
         private bool _showGraph;
         private string _usage;
         private readonly ObservableCollection<int> _values;
 
-        public ProcessorUsageViewModel(ISettingsService settings, ISystemInfoService systemInfo)
+        public ProcessorUsageViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
         {
             _settingsService = settings;
-            _systemInfoService = systemInfo;
+            _systemMonitorService = systemMonitorService;
             _values = new ObservableCollection<int>();
         }
 

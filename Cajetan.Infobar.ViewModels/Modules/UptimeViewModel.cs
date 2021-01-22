@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Domain.Models;
+using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 
 namespace Cajetan.Infobar.ViewModels
@@ -6,15 +6,15 @@ namespace Cajetan.Infobar.ViewModels
     public class UptimeViewModel : ModuleViewModelBase
     {
         private readonly ISettingsService _settingsService;
-        private readonly ISystemInfoService _systemInfoService;
+        private readonly ISystemMonitorService _systemMonitorService;
 
         private bool _showDays;
         private string _uptime;
 
-        public UptimeViewModel(ISettingsService settings, ISystemInfoService systemInfo)
+        public UptimeViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
         {
             _settingsService = settings;
-            _systemInfoService = systemInfo;
+            _systemMonitorService = systemMonitorService;
 
             ShowDays = false;
         }

@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Domain.Models;
+using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 
 namespace Cajetan.Infobar.ViewModels
@@ -6,19 +6,19 @@ namespace Cajetan.Infobar.ViewModels
     public class BatteryStatusViewModel : ModuleViewModelBase
     {
         private readonly ISettingsService _settingsService;
-        private readonly ISystemInfoService _systemInfoService;
+        private readonly ISystemMonitorService _systemMonitorService;
 
         private bool _showTime;
         private string _status;
 
-        public BatteryStatusViewModel(ISettingsService settings, ISystemInfoService systemInfo)
+        public BatteryStatusViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
         {
             _settingsService = settings;
-            _systemInfoService = systemInfo;
+            _systemMonitorService = systemMonitorService;
 
             ShowTime = true;
         }
-        
+
         public override EModuleType ModuleType => EModuleType.BatteryStatus;
 
         public bool ShowTime
