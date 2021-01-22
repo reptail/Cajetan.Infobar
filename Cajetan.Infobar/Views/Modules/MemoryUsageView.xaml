@@ -10,15 +10,15 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="18" />
             <ColumnDefinition Width="55" />
-            <ColumnDefinition Width="105"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="75"/>
         </Grid.ColumnDefinitions>
 
         <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1 1 1 2"
                Source="{Binding ModuleType, Converter={StaticResource ModuleTypeToImageResourceConverter}, ConverterParameter=24}" />
 
-        <TextBlock Grid.Column="1" Text="Memory:" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <TextBlock Grid.Column="2" Text="{Binding Usage, FallbackValue='1234M / 4321M'}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="1" Text="Memory:" VerticalAlignment="Center" TextAlignment="Left" />
+        <TextBlock Grid.Column="2" Text="{Binding Usage, FallbackValue='11234M / 24321M'}" VerticalAlignment="Center" TextAlignment="Center" />
 
         <v:LineGraph Grid.Column="3" Tag="MEM" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                      LineThickness="0.75" BottomMargin="1" TopMargin="2" Values="{Binding Values}" />

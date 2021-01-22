@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Cajetan.Infobar.Design
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
     public class DesignViewModelLocator
     {
         private static readonly Random _random = new Random();
@@ -87,7 +88,7 @@ namespace Cajetan.Infobar.Design
             {
                 MemoryUsageViewModel vm = new MemoryUsageViewModel(null, null)
                 {
-                    Usage = "3712MB / 12323MB"
+                    Usage = "13712MB / 32323MB"
                 };
 
                 for (int i = 0; i < 100; i++)
