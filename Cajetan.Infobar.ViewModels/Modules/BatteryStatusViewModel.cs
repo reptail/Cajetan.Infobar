@@ -1,5 +1,6 @@
-using Cajetan.Infobar.Domain.Models;
+﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
+using System;
 
 namespace Cajetan.Infobar.ViewModels
 {
@@ -50,7 +51,48 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void RefreshData()
         {
-            Status = _systemInfoService.BatteryStatusString;
+            IBatteryInfo info = _systemMonitorService.Battery;
+
+            string percentage = $"{info.Percentage,3:##0}%";
+
+            switch (info.State)
+            {
+                case EBatteryChargeState.NoBattery:
+                    Status = "No Battery";
+                    break;
+
+                case EBatteryChargeState.FullyCharged:
+                    Status = percentage;
+                    break;
+
+                case EBatteryChargeState.Charging:
+                    Status = $"{percentage} (Charging)";
+                    break;
+
+                case EBatteryChargeState.Discharging:
+                    string text = ShowTime
+                        ? GenerateTimeRemaining(info.TimeToDepleted)
+                        : "Discharging";
+                    Status = $"{percentage} ({text})";
+                    break;
+
+                default:
+                    Status = "Unknown";
+                    break;
+            }
+        }
+
+        private static string GenerateTimeRemaining(TimeSpan timeRemaining)
+        {
+            if (timeRemaining > TimeSpan.FromDays(5))
+                return "Calculating";
+
+            string time = $"{timeRemaining.Hours:00}h {timeRemaining.Minutes:00}m";
+
+            if (timeRemaining > TimeSpan.FromDays(1))
+                time = $"{timeRemaining.Days:0}d {time}";
+
+            return time;
         }
     }
 }

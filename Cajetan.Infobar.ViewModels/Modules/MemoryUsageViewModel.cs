@@ -1,5 +1,6 @@
-using Cajetan.Infobar.Domain.Models;
+﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Cajetan.Infobar.ViewModels
@@ -55,8 +56,14 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void RefreshData()
         {
-            Usage = _systemInfoService.MemoryUsageString;
-            Values.Add(_systemInfoService.MemoryUsedPercentage);
+            IMemoryInfo info = _systemMonitorService.Memory;
+
+            string memUsed = $"{info.Used:0} {info.Unit}";
+            string memTotal = $"{info.Total:0} {info.Unit}";
+            int memPercentage = Convert.ToInt32(info.Percentage);
+
+            Usage = $"{memUsed} / {memTotal}";
+            Values.Add(memPercentage);
         }
 
     }

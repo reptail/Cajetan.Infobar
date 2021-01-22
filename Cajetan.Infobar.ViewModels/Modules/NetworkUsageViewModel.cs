@@ -1,15 +1,20 @@
-using Cajetan.Infobar.Domain.Models;
+﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 
 namespace Cajetan.Infobar.ViewModels
 {
     public class NetworkUsageViewModel : ModuleViewModelBase
     {
+        private const string IS_ENABLED_KEY = "Module_Network_IsEnabled";
+        private const string SORT_ORDER_KEY = "Module_Network_SortOrder";
+        private const string DISPLAY_FORMAT_KEY = "Module_Network_DisplayFormat";
+
         private readonly ISettingsService _settingsService;
         private readonly ISystemMonitorService _systemMonitorService;
 
         private string _upload;
         private string _download;
+        private ENetworkDisplayFormat _displayFormat;
 
         public NetworkUsageViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
         {
@@ -33,18 +38,25 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void Update()
         {
-            if (_settingsService.Contains("Module_Network_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Network_IsEnabled");
+            if (_settingsService.Contains(IS_ENABLED_KEY))
+                IsEnabled = _settingsService.Get<bool>(IS_ENABLED_KEY);
 
-            if (_settingsService.Contains("Module_Network_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Network_SortOrder");
+            if (_settingsService.Contains(SORT_ORDER_KEY))
+                SortOrder = _settingsService.Get<int>(SORT_ORDER_KEY);
+
+            if (_settingsService.Contains(DISPLAY_FORMAT_KEY))
+                _displayFormat = _settingsService.Get<ENetworkDisplayFormat>(DISPLAY_FORMAT_KEY);
         }
 
         public override void RefreshData()
         {
-            Download = _systemInfoService.NetworkDownloadString;
-            Upload = _systemInfoService.NetworkUploadString;
-        }
+            INetworkInfo info = _systemMonitorService.Network;
 
+            (double downRate, string downUnit) = info.GetDownloadRate(_displayFormat);
+            (double upRate, string upUnit) = info.GetUploadRate(_displayFormat);
+
+            Download = $"{downRate:0.0}{downUnit}";
+            Upload = $"{upRate:0.0}{upUnit}";
+        }
     }
 }

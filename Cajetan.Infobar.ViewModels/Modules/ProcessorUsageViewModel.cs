@@ -1,5 +1,6 @@
-using Cajetan.Infobar.Domain.Models;
+﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Cajetan.Infobar.ViewModels
@@ -53,8 +54,10 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void RefreshData()
         {
-            Usage = _systemInfoService.ProcessorUsageString;
-            Values.Add(_systemInfoService.ProcessorUsage);
+            int cpuPercentage = Convert.ToInt32(_systemMonitorService.Processor.Percentage);
+
+            Usage = $"{cpuPercentage} %";
+            Values.Add(cpuPercentage);
         }
     }
 }

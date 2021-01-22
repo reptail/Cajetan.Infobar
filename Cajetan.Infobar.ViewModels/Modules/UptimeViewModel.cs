@@ -1,5 +1,6 @@
-using Cajetan.Infobar.Domain.Models;
+﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
+using System;
 
 namespace Cajetan.Infobar.ViewModels
 {
@@ -50,7 +51,13 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void RefreshData()
         {
-            Uptime = _systemInfoService.UptimeString;
+            TimeSpan uptime = _systemMonitorService.Info.Uptime;
+
+            string strDays = ShowDays || uptime.Days > 0
+                ? $"{uptime.Days:0}d "
+                : "";
+            string strTime = $"{uptime.Hours:00}:{uptime.Minutes:00}:{uptime.Seconds:00}";
+            Uptime = $"{strDays}{strTime}";
         }
     }
 }
