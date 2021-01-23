@@ -11,6 +11,12 @@
     <ApplicationIcon>Resources\Icons\infobar-icon.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Title>Cajetan Infobar</Title>
+    <Description>AppBar showing system information like CPU, RAM and Network usages.</Description>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Cajetan.Infobar.Domain\Cajetan.Infobar.Domain.csproj" />
     <ProjectReference Include="..\Cajetan.Infobar.Services\Cajetan.Infobar.Services.csproj" />

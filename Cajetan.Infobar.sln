@@ -5,17 +5,18 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cajetan.Infobar", "Cajetan.Infobar\Cajetan.Infobar.csproj", "{8DD842DE-82F7-40BC-BD4B-53C4ACD56AF3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{CD7E198A-907F-417A-B3C2-CB3449E342A1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cajetan.Infobar.Domain", "Cajetan.Infobar.Domain\Cajetan.Infobar.Domain.csproj", "{BC3B06B1-6F3D-4F32-961A-3D6F1A0F5FAD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cajetan.Infobar.ViewModels", "Cajetan.Infobar.ViewModels\Cajetan.Infobar.ViewModels.csproj", "{B600DD58-9276-4CDC-9A52-EEEC1F349C70}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cajetan.Infobar.Services", "Cajetan.Infobar.Services\Cajetan.Infobar.Services.csproj", "{03DC4B15-6114-4FE8-90D8-2CD5B42AC6D8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{857F6040-8135-44ED-BED6-D17836CDD17B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{857F6040-8135-44ED-BED6-D17836CDD17B}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		clean+publish.bat = clean+publish.bat
 		Images\InfobarScreenshot.png = Images\InfobarScreenshot.png
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
