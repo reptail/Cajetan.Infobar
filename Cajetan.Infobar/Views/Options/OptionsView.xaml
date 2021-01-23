@@ -3,10 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="600"
-             Padding="5" Background="{StaticResource BackgroundColor}" Foreground="{StaticResource ForegroundColor}"
+             xmlns:fa="http://schemas.fontawesome.com/icons/"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="600"
              d:DataContext="{Binding OptionsViewModel, Source={StaticResource DesignViewModelLocator}}"
+             Padding="5"  Background="{StaticResource BackgroundColor}"             
              x:Name="optionsView">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundColorAlt}" />
+        </Style>
+
+        <Thickness x:Key="ButtonPadding">8 1</Thickness>
+        <Thickness x:Key="TextColorMargin">5 0</Thickness>
+        <system:Double x:Key="GeneralColumnWidth">150</system:Double>
+        <system:Double x:Key="GeneralRowHeight">35</system:Double>
+        <system:Double x:Key="GeneralColorWidth">30</system:Double>
+        <system:Double x:Key="GeneralColorHeight">22</system:Double>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -21,62 +43,75 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Margin="4 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
+                    <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="GENERAL" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" />
 
-                <Grid Grid.Row="1"  Margin="10,0,0,0">
+                <StackPanel Grid.Row="1" Orientation="Vertical" Margin="3 0">
+                    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0 0 0 1" VerticalAlignment="Center" Padding="0 4" Height="{StaticResource GeneralRowHeight}">
+                        <StackPanel Orientation="Horizontal" Margin="6 0">
+                            <TextBlock Width="{StaticResource GeneralColumnWidth}" VerticalAlignment="Center" Text="Background Color"/>
+                            <StackPanel Width="{StaticResource GeneralColumnWidth}" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Border Background="{Binding BackgroundColor, Converter={StaticResource HexToBrushConverter}}" 
+                                        Width="{StaticResource GeneralColorWidth}" Height="{StaticResource GeneralColorHeight}"
+                                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="3" />
+                                <TextBlock Text="{Binding BackgroundColor}" Margin="{StaticResource TextColorMargin}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Button fa:Awesome.Content="Solid_Palette" Padding="{StaticResource ButtonPadding}" Margin="5 0"
+                                    HorizontalAlignment="Left" Command="{Binding SelectBackgroundColorCommand}" />
+                        </StackPanel>
+                    </Border>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0 0 0 1" VerticalAlignment="Center" Padding="0 4" Height="{StaticResource GeneralRowHeight}">
+                        <StackPanel Orientation="Horizontal" Margin="6 0">
+                            <TextBlock Width="{StaticResource GeneralColumnWidth}" VerticalAlignment="Center" Text="Foreground Color" />
+                            <StackPanel Width="{StaticResource GeneralColumnWidth}" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Border Background="{Binding ForegroundColor, Converter={StaticResource HexToBrushConverter}}"  
+                                        Width="{StaticResource GeneralColorWidth}" Height="{StaticResource GeneralColorHeight}"
+                                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="3" />
+                                <TextBlock Text="{Binding ForegroundColor}" Margin="{StaticResource TextColorMargin}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Button fa:Awesome.Content="Solid_Palette" Padding="{StaticResource ButtonPadding}" Margin="5 0"
+                                    HorizontalAlignment="Left" Command="{Binding SelectBackgroundColorCommand}" />
+                        </StackPanel>
+                    </Border>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0 0 0 1" VerticalAlignment="Center" Padding="0 4" Height="{StaticResource GeneralRowHeight}">
+                        <StackPanel Orientation="Horizontal" Margin="6 0">
+                            <TextBlock Width="{StaticResource GeneralColumnWidth}" VerticalAlignment="Center" Text="Border Color"/>
+                            <StackPanel Width="{StaticResource GeneralColumnWidth}" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Border Background="{Binding BorderColor, Converter={StaticResource HexToBrushConverter}}"  
+                                        Width="{StaticResource GeneralColorWidth}" Height="{StaticResource GeneralColorHeight}"
+                                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="3" />
+                                <TextBlock Text="{Binding BorderColor}" Margin="{StaticResource TextColorMargin}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Button fa:Awesome.Content="Solid_Palette" Padding="{StaticResource ButtonPadding}" Margin="5 0"
+                                    HorizontalAlignment="Left" Command="{Binding SelectBackgroundColorCommand}" />
+                        </StackPanel>
+                    </Border>
 
-                    <TextBlock Grid.Row="0" VerticalAlignment="Center" Text="Background Color"/>
-                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Border Background="{Binding BackgroundColor, Converter={StaticResource HexToBrushConverter}}" Width="20" CornerRadius="3" Margin="0 1 0 1"/>
-                        <TextBlock Text="{Binding BackgroundColor}" Margin="4 0" />
-                    </StackPanel>
-                    <Button Grid.Row="0" Grid.Column="2" Content="Change" Padding="4 0 4 1" Margin="0 2"
-                            HorizontalAlignment="Left" Command="{Binding SelectBackgroundColorCommand}" />
+                    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0 0 0 1" VerticalAlignment="Center" Padding="0 4" Height="{StaticResource GeneralRowHeight}">
+                        <StackPanel Orientation="Horizontal" Margin="6 0">
+                            <TextBlock Width="{StaticResource GeneralColumnWidth}" VerticalAlignment="Center" Text="Update Interval"/>
+                            <StackPanel Width="{StaticResource GeneralColumnWidth}" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Border Width="{StaticResource GeneralColorWidth}" />
+                                <TextBlock Text="{Binding UpdateInterval, StringFormat=0 ms}" Margin="{StaticResource TextColorMargin}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Slider Width="{StaticResource GeneralColumnWidth}" VerticalAlignment="Center"
+                                    Minimum="500" Maximum="2500" Value="{Binding UpdateInterval}"
+                                    TickFrequency="100" Interval="100" IsSnapToTickEnabled="True" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
 
-                    <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="Foreground Color" />
-                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Border Background="{Binding ForegroundColor, Converter={StaticResource HexToBrushConverter}}" Width="20" CornerRadius="3" Margin="0 1 0 1"/>
-                        <TextBlock Text="{Binding ForegroundColor}" Margin="4 0" />
-                    </StackPanel>
-                    <Button Grid.Row="1" Grid.Column="2" Content="Change" Padding="4 0 4 1" Margin="0 2"
-                            HorizontalAlignment="Left" Command="{Binding SelectBackgroundColorCommand}" />
-
-                    <TextBlock Grid.Row="2" VerticalAlignment="Center" Text="Border Color"/>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Border Background="{Binding BorderColor, Converter={StaticResource HexToBrushConverter}}" Width="20" CornerRadius="3" Margin="0 1 0 1"/>
-                        <TextBlock Text="{Binding BorderColor}" Margin="4 0" />
-                    </StackPanel>
-                    <Button Grid.Row="2" Grid.Column="2" Content="Change" Padding="4 0 4 1" Margin="0 2"
-                            HorizontalAlignment="Left" Command="{Binding SelectBackgroundColorCommand}" />
-
-                    <TextBlock Grid.Row="3" VerticalAlignment="Center" Text="Update Interval"/>
-                    <Slider Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                            Minimum="500" Maximum="2500" TickFrequency="100" Interval="100" IsSnapToTickEnabled="True" 
-                            Margin="5 3" Value="{Binding UpdateInterval}" />
-                    <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Text="{Binding UpdateInterval, StringFormat=0 ms}" />
-                </Grid>
             </Grid>
 
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2" Margin="4 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
                     <RowDefinition/>
@@ -91,7 +126,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox ItemsSource="{Binding ModuleOptions}" SelectedItem="{Binding SelectedModuleOption}"
+                    <ListBox ItemsSource="{Binding ModuleOptions}" SelectedItem="{Binding SelectedModuleOption}" 
+                             Background="{StaticResource BackgroundColor}" Foreground="{StaticResource ForegroundColor}"
                              HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                              BorderThickness="0" Margin="0 0 5 0">
                         <ListBox.ItemTemplate>
@@ -158,13 +194,11 @@
                             <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="5 0"
                                        Text="Move Module" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5 0"
-                                    Width="24" Height="22" Command="{Binding DataContext.MoveUpCommand, ElementName=optionsView}" CommandParameter="{Binding}">
-                                <Image Source="/Cajetan.Infobar;component/Resources/Images/black_up_8.png" Width="8" />
-                            </Button>
+                                    Width="24" Height="22" Command="{Binding DataContext.MoveUpCommand, ElementName=optionsView}" CommandParameter="{Binding}" 
+                                    fa:Awesome.Content="Solid_ChevronUp" />
                             <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5 0"
-                                    Width="24" Height="22" Command="{Binding DataContext.MoveDownCommand, ElementName=optionsView}" CommandParameter="{Binding}">
-                                <Image Source="/Cajetan.Infobar;component/Resources/Images/black_down_8.png" Width="8" />
-                            </Button>
+                                    Width="24" Height="22" Command="{Binding DataContext.MoveDownCommand, ElementName=optionsView}" CommandParameter="{Binding}"
+                                    fa:Awesome.Content="Solid_ChevronDown" />
                         </Grid>
 
                         <Border Grid.Row="1" Height="1" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0 1 0 0" />
@@ -184,6 +218,8 @@
                         <Setter Property="Height" Value="26" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="Margin" Value="5 0 5 0" />
+                        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+                        <Setter Property="Background" Value="{StaticResource BackgroundColorAlt}" />
                     </Style>
                 </StackPanel.Resources>
 

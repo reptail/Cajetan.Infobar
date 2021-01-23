@@ -12,8 +12,9 @@
     <c:ModuleTypeToImageResourceConverter x:Key="ModuleTypeToImageResourceConverter" />
 
     <!-- Color definitions -->
-    <SolidColorBrush x:Key="BackgroundColor">#FFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="ForegroundColor">#000000</SolidColorBrush>
-    <SolidColorBrush x:Key="BorderBrush">#828790</SolidColorBrush>
+    <SolidColorBrush x:Key="BackgroundColor">#242424</SolidColorBrush>
+    <SolidColorBrush x:Key="BackgroundColorAlt">#3b3b3b</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundColor">#f8f8f8</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderBrush">#606060</SolidColorBrush>
 
 </ResourceDictionary>

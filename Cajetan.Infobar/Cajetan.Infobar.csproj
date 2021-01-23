@@ -21,6 +21,7 @@
     <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="WpfAppBar" Version="3.0.0" />
     <PackageReference Include="TAlex.WPF.Controls" Version="3.0.2" />
+    <PackageReference Include="FontAwesome5" Version="2.0.8" />
   </ItemGroup>
 
   <ItemGroup>
