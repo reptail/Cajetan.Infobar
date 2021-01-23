@@ -45,13 +45,10 @@ namespace Cajetan.Infobar
                 return;
 
             appbar.AppBarFunctions.SetAppBar(this, appbar.ABEdge.None, topMost: false);
-            Visibility = Visibility.Hidden;
 
             Thread.Sleep(50);
 
-            Visibility = Visibility.Visible;
             appbar.AppBarFunctions.SetAppBar(this, _appbarEdge, topMost: false);
-
         }
 
         public void Shutdown() => Application.Current.Shutdown();
@@ -70,8 +67,8 @@ namespace Cajetan.Infobar
             SetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GWL_EXSTYLE, (IntPtr)exStyle);
 
 #if DEBUG
-            Top = 1150;
-            Left = -1600;
+            Top = 355;
+            Left = -1250;
             ShowInTaskbar = true;
             MouseDown += (s, e) =>
             {
@@ -99,7 +96,6 @@ namespace Cajetan.Infobar
             string hc = e.HeightChanged ? "T" : "F";
             Debug.WriteLine($"Size Changed | W: {e.NewSize.Width,4:###0} ({wc}) | H: {e.NewSize.Height,4:###0} ({hc})");
         }
-
 
         [Flags]
         public enum ExtendedWindowStyles

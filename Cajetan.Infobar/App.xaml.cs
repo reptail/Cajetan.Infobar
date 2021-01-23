@@ -36,5 +36,12 @@ namespace Cajetan.Infobar
 
             mainWindow.Show();
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            AutofacConfig.Dispose();
+
+            base.OnExit(e);
+        }
     }
 }

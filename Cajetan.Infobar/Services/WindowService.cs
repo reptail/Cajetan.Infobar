@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -12,7 +13,7 @@ namespace Cajetan.Infobar.Services
 {
     public class WindowService : IWindowService
     {
-
+        private bool _isDisposed;
         private readonly List<Window> _openWindows;
 
         public WindowService()
@@ -90,6 +91,32 @@ namespace Cajetan.Infobar.Services
             return currentColorHex;
         }
 
+        public void Invoke(Action act)
+        {
+            if (HasDispatcherAccess())
+                act();
+            else
+                Application.Current.Dispatcher.Invoke(act);
+        }
+        public async Task InvokeAsync(Func<Task> asyncFunc)
+        {
+            if (HasDispatcherAccess())
+            {
+                await asyncFunc();
+                return;
+            }
+
+            await Application.Current.Dispatcher.InvokeAsync(asyncFunc);
+        }
+
+        private static bool HasDispatcherAccess()
+        {
+            if (Application.Current?.Dispatcher is null)
+                return true; // If dispatcher is null, assume we are running on UI thread.
+
+            return Application.Current.Dispatcher.CheckAccess();
+        }
+
         public void CloseWindow(IWindowViewModel viewModel)
         {
             CloseWindow(viewModel, true);
@@ -138,7 +165,7 @@ namespace Cajetan.Infobar.Services
             window.Content = viewModel;
             window.DataContext = viewModel;
 
-            window.ResizeMode = allowResize ? ResizeMode.CanResizeWithGrip : ResizeMode.NoResize;            
+            window.ResizeMode = allowResize ? ResizeMode.CanResizeWithGrip : ResizeMode.NoResize;
 
             // Bind window title
             if (string.IsNullOrEmpty(window.Title))
@@ -147,7 +174,7 @@ namespace Cajetan.Infobar.Services
             // The WindowManager will always live longer than the window,
             // so we don't need to unsubscribe this event handler.
             window.Closed += Window_Closed;
-            
+
             // Add to open windows
             _openWindows.Add(window);
 
@@ -167,18 +194,43 @@ namespace Cajetan.Infobar.Services
         {
             if (sender is not Window window) return;
 
-            // Unregister KeyDown event
-            window.PreviewKeyDown -= Window_PreviewKeyDown;
-
-            // Notify ViewModel of event
-
-            if (window.DataContext is ObservableObject vm)
-            {
-                //vm.Dispose();
-            }
+            DisposeWindowAndDataContext(window);
 
             // Remove from open windows
             _openWindows.Remove(window);
+        }
+
+        private void DisposeWindowAndDataContext(Window window)
+        {
+            // Unregister events
+            window.PreviewKeyDown -= Window_PreviewKeyDown;
+            window.Closed -= Window_Closed;
+
+            // Dispose DataContext
+            if (window.DataContext is IDisposable disposable)
+                disposable.Dispose();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_isDisposed)
+            {
+                if (disposing)
+                {
+                    foreach (Window w in _openWindows)
+                        DisposeWindowAndDataContext(w);
+
+                    _openWindows.Clear();
+                }
+
+                _isDisposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

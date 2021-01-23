@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
 
@@ -16,7 +17,7 @@ namespace Cajetan.Infobar.ViewModels
         private readonly IAppBarController _appBar;
         private readonly ISettingsService _settingsService;
         private readonly IWindowService _windowService;
-        private readonly ISystemMonitorService _systemInfoService;
+        private readonly ISystemMonitorService _systemMonitorService;
         private readonly OptionsViewModel _optionsViewModel;
 
         private readonly Timer _timer;
@@ -28,14 +29,13 @@ namespace Cajetan.Infobar.ViewModels
         private readonly ModuleViewModelBase[] _availableModules;
         private ObservableCollection<ModuleViewModelBase> _activeModules;
 
-
-        public MainViewModel(IAppBarController appBar, ISettingsService settings, IWindowService windowService, ISystemMonitorService systemInfoService,
+        public MainViewModel(IAppBarController appBar, ISettingsService settings, IWindowService windowService, ISystemMonitorService systemMonitorService,
                              OptionsViewModel optionsViewModel, ModuleViewModelBase[] availableModules)
         {
             _appBar = appBar ?? throw new ArgumentNullException(nameof(appBar));
             _settingsService = settings ?? throw new ArgumentNullException(nameof(settings));
             _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
-            _systemInfoService = systemInfoService ?? throw new ArgumentNullException(nameof(systemInfoService));
+            _systemMonitorService = systemMonitorService ?? throw new ArgumentNullException(nameof(systemMonitorService));
             _optionsViewModel = optionsViewModel ?? throw new ArgumentNullException(nameof(optionsViewModel));
             _availableModules = availableModules ?? Array.Empty<ModuleViewModelBase>();
 
@@ -89,6 +89,9 @@ namespace Cajetan.Infobar.ViewModels
                 LoadFromSettings();
             }
 
+            // Initial refresh of values and modules
+            UpdateDataAndRefreshModules();
+
             // Start update timer
             _timer.Start();
         }
@@ -119,9 +122,12 @@ namespace Cajetan.Infobar.ViewModels
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+            => UpdateDataAndRefreshModules();
+
+        private void UpdateDataAndRefreshModules()
         {
             // Update system info
-            _systemInfoService.Update();
+            _systemMonitorService.Update();
 
             // Refresh modules
             foreach (ModuleViewModelBase m in ActiveModules)

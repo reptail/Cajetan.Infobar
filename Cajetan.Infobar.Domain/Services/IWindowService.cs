@@ -1,8 +1,10 @@
 ﻿using Cajetan.Infobar.Domain.ViewModels;
+using System;
+using System.Threading.Tasks;
 
 namespace Cajetan.Infobar.Domain.Services
 {
-    public interface IWindowService
+    public interface IWindowService : IDisposable
     {
         bool Alert(string title, string message);
 
@@ -18,5 +20,8 @@ namespace Cajetan.Infobar.Domain.Services
 
         void CloseWindow(IWindowViewModel viewModel);
         void CloseWindow(IWindowViewModel viewModel, bool result);
+
+        void Invoke(Action act);
+        Task InvokeAsync(Func<Task> asyncFunc);
     }
 }

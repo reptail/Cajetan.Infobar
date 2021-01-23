@@ -14,7 +14,7 @@
   <PropertyGroup>
     <Title>Cajetan Infobar</Title>
     <Description>AppBar showing system information like CPU, RAM and Network usages.</Description>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
   </PropertyGroup>
   
   <ItemGroup>

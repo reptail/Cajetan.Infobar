@@ -10,6 +10,7 @@
     <c:HexToBrushConverter x:Key="HexToBrushConverter" />
     <c:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
     <c:ModuleTypeToImageResourceConverter x:Key="ModuleTypeToImageResourceConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <!-- Color definitions -->
     <SolidColorBrush x:Key="BackgroundColor">#242424</SolidColorBrush>

@@ -4,6 +4,7 @@ using Cajetan.Infobar.Domain.Services;
 using Cajetan.Infobar.Domain.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Cajetan.Infobar.Design
 {
@@ -51,6 +52,7 @@ namespace Cajetan.Infobar.Design
             public INetworkInfo Network { get; } = new DesignNetworkInfo();
 
             public void Update() { }
+            public void Dispose() { }
 
             private class DesignSysInfo : ISysInfo
             {
@@ -129,6 +131,10 @@ namespace Cajetan.Infobar.Design
             public void OpenWindow(IWindowViewModel viewModel, bool allowResize, double? width, double? height) { }
 
             public string ShowColorDialog(string title, string currentColorHex) => string.Empty;
+
+            public void Invoke(Action act) => act();
+            public Task InvokeAsync(Func<Task> asyncFunc) => asyncFunc();
+            public void Dispose() { }
         }
 
         private class DesignAppBarController : IAppBarController
