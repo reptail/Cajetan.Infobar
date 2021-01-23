@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 namespace Cajetan.Infobar.Design
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
     public partial class DesignViewModelLocator
     {
         private static readonly Random _random = new Random();
@@ -29,7 +30,7 @@ namespace Cajetan.Infobar.Design
                     ForegroundColor = "#FFF5F5F5",
                     BorderColor = "#FF5E6F7F",
 
-                    ActiveModules = new ObservableCollection<ModuleViewModelBase>(Modules)
+                    ActiveModules = new ObservableCollection<ModuleViewModelBase>(Modules),
                 };
 
                 return vm;

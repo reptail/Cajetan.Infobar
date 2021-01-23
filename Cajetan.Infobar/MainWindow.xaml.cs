@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Config;
+using Cajetan.Infobar.Config;
 using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.ViewModels;
 using System;
@@ -43,15 +43,12 @@ namespace Cajetan.Infobar
         {
             if (_appbarEdge == appbar.ABEdge.None)
                 return;
-
+            
             appbar.AppBarFunctions.SetAppBar(this, appbar.ABEdge.None, topMost: false);
-            Visibility = Visibility.Hidden;
 
             Thread.Sleep(50);
 
-            Visibility = Visibility.Visible;
             appbar.AppBarFunctions.SetAppBar(this, _appbarEdge, topMost: false);
-
         }
 
         public void Shutdown() => Application.Current.Shutdown();
@@ -99,7 +96,6 @@ namespace Cajetan.Infobar
             string hc = e.HeightChanged ? "T" : "F";
             Debug.WriteLine($"Size Changed | W: {e.NewSize.Width,4:###0} ({wc}) | H: {e.NewSize.Height,4:###0} ({hc})");
         }
-
 
         [Flags]
         public enum ExtendedWindowStyles
