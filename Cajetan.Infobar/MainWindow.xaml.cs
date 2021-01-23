@@ -1,4 +1,4 @@
-using Cajetan.Infobar.Config;
+﻿using Cajetan.Infobar.Config;
 using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.ViewModels;
 using System;
@@ -43,7 +43,7 @@ namespace Cajetan.Infobar
         {
             if (_appbarEdge == appbar.ABEdge.None)
                 return;
-            
+
             appbar.AppBarFunctions.SetAppBar(this, appbar.ABEdge.None, topMost: false);
 
             Thread.Sleep(50);
@@ -67,8 +67,8 @@ namespace Cajetan.Infobar
             SetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GWL_EXSTYLE, (IntPtr)exStyle);
 
 #if DEBUG
-            Top = 1150;
-            Left = -1600;
+            Top = 355;
+            Left = -1250;
             ShowInTaskbar = true;
             MouseDown += (s, e) =>
             {
