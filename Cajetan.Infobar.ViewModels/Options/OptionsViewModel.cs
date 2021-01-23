@@ -49,7 +49,7 @@ namespace Cajetan.Infobar.ViewModels
             BackgroundColor = "#FF3B3B3B";
             ForegroundColor = "#FFF5F5F5";
             BorderColor = "#FF5E6F7F";
-            UpdateInterval = 500;
+            UpdateInterval = 1000;
         }
 
         public string DisplayName { get; } = "Cajetan Infobar - Options";
