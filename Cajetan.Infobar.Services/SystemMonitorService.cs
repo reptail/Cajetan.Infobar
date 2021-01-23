@@ -151,7 +151,7 @@ namespace Cajetan.Infobar.Services
 
                     TimeToDepleted = TimeSpan.FromMinutes(battery.EstimatedRunTime);
                     TimeToFullCharge = TimeSpan.FromMinutes(battery.TimeToFullCharge);
-                    //Percentage = battery.EstimatedChargeRemaining;
+                    Percentage = battery.EstimatedChargeRemaining;
 
                     State = battery.BatteryStatus switch
                     {
