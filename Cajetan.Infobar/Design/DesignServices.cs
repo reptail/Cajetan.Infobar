@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Domain.AppBar;
+using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 using Cajetan.Infobar.Domain.ViewModels;
@@ -51,6 +51,7 @@ namespace Cajetan.Infobar.Design
             public INetworkInfo Network { get; } = new DesignNetworkInfo();
 
             public void Update() { }
+            public void Dispose() { }
 
             private class DesignSysInfo : ISysInfo
             {
@@ -129,6 +130,8 @@ namespace Cajetan.Infobar.Design
             public void OpenWindow(IWindowViewModel viewModel, bool allowResize, double? width, double? height) { }
 
             public string ShowColorDialog(string title, string currentColorHex) => string.Empty;
+
+            public void Dispose() { }
         }
 
         private class DesignAppBarController : IAppBarController

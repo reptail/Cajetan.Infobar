@@ -21,6 +21,11 @@ namespace Cajetan.Infobar.Config
             _container = cb.Build();
         }
 
+        public static void Dispose()
+        {
+            _container?.Dispose();
+        }
+
         public static T Resolve<T>()
         {
             return _container.Resolve<T>();
@@ -29,7 +34,8 @@ namespace Cajetan.Infobar.Config
         private static void RegisterMisc(ContainerBuilder cb, MainWindow mainWindow)
         {
             cb.RegisterInstance(mainWindow)
-                .As<IAppBarController>();
+                .As<IAppBarController>()
+                .ExternallyOwned();
         }
 
         private static void RegisterViewModels(ContainerBuilder cb)

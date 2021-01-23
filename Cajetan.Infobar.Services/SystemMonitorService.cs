@@ -8,9 +8,8 @@ using System.Linq;
 
 namespace Cajetan.Infobar.Services
 {
-    public class SystemMonitorService : ISystemMonitorService, IDisposable
+    public class SystemMonitorService : ISystemMonitorService
     {
-
         private bool _isDisposed;
 
         public SystemMonitorService()

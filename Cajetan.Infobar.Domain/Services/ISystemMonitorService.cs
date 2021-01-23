@@ -1,8 +1,9 @@
 ﻿using Cajetan.Infobar.Domain.Models;
+using System;
 
 namespace Cajetan.Infobar.Domain.Services
 {
-    public interface ISystemMonitorService
+    public interface ISystemMonitorService : IDisposable
     {
         ISysInfo Info { get; }
         IBatteryInfo Battery { get; }

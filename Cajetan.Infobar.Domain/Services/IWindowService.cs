@@ -1,8 +1,9 @@
-﻿using Cajetan.Infobar.Domain.ViewModels;
+using Cajetan.Infobar.Domain.ViewModels;
+using System;
 
 namespace Cajetan.Infobar.Domain.Services
 {
-    public interface IWindowService
+    public interface IWindowService : IDisposable
     {
         bool Alert(string title, string message);
 
