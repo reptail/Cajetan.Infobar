@@ -1,9 +1,10 @@
-using Cajetan.Infobar.Domain.AppBar;
+﻿using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 using Cajetan.Infobar.Domain.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Cajetan.Infobar.Design
 {
@@ -131,6 +132,8 @@ namespace Cajetan.Infobar.Design
 
             public string ShowColorDialog(string title, string currentColorHex) => string.Empty;
 
+            public void Invoke(Action act) => act();
+            public Task InvokeAsync(Func<Task> asyncFunc) => asyncFunc();
             public void Dispose() { }
         }
 

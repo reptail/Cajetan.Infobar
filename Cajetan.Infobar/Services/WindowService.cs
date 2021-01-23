@@ -1,9 +1,10 @@
-using Cajetan.Infobar.Domain.Services;
+﻿using Cajetan.Infobar.Domain.Services;
 using Cajetan.Infobar.Domain.ViewModels;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -88,6 +89,32 @@ namespace Cajetan.Infobar.Services
             }
 
             return currentColorHex;
+        }
+
+        public void Invoke(Action act)
+        {
+            if (HasDispatcherAccess())
+                act();
+            else
+                Application.Current.Dispatcher.Invoke(act);
+        }
+        public async Task InvokeAsync(Func<Task> asyncFunc)
+        {
+            if (HasDispatcherAccess())
+            {
+                await asyncFunc();
+                return;
+            }
+
+            await Application.Current.Dispatcher.InvokeAsync(asyncFunc);
+        }
+
+        private static bool HasDispatcherAccess()
+        {
+            if (Application.Current?.Dispatcher is null)
+                return true; // If dispatcher is null, assume we are running on UI thread.
+
+            return Application.Current.Dispatcher.CheckAccess();
         }
 
         public void CloseWindow(IWindowViewModel viewModel)

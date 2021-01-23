@@ -1,5 +1,6 @@
-using Cajetan.Infobar.Domain.ViewModels;
+﻿using Cajetan.Infobar.Domain.ViewModels;
 using System;
+using System.Threading.Tasks;
 
 namespace Cajetan.Infobar.Domain.Services
 {
@@ -19,5 +20,8 @@ namespace Cajetan.Infobar.Domain.Services
 
         void CloseWindow(IWindowViewModel viewModel);
         void CloseWindow(IWindowViewModel viewModel, bool result);
+
+        void Invoke(Action act);
+        Task InvokeAsync(Func<Task> asyncFunc);
     }
 }
