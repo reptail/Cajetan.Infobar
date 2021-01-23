@@ -76,8 +76,8 @@ namespace Cajetan.Infobar.Config
             cb.RegisterType<WindowService>()
                 .As<IWindowService>()
                 .SingleInstance();
-            cb.RegisterType<SystemInfoService>()
-                .As<ISystemInfoService>()
+            cb.RegisterType<SystemMonitorService>()
+                .As<ISystemMonitorService>()
                 .SingleInstance();
         }
 

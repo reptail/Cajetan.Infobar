@@ -3,8 +3,9 @@
     public enum EBatteryChargeState
     {
         Unknown,
+        NoBattery,
         Charging,
         Discharging,
-        NoBattery
+        FullyCharged
     }
 }

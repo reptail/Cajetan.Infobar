@@ -1,5 +1,6 @@
 ﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Cajetan.Infobar.ViewModels
@@ -7,11 +8,19 @@ namespace Cajetan.Infobar.ViewModels
     public class MemoryUsageViewModel : ModuleViewModelBase
     {
         private readonly ISettingsService _settingsService;
-        private readonly ISystemInfoService _systemInfoService;
+        private readonly ISystemMonitorService _systemMonitorService;
 
         private bool _showGraph;
         private string _usage;
         private readonly ObservableCollection<int> _values = new ObservableCollection<int>();
+
+        public MemoryUsageViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
+        {
+            _settingsService = settings;
+            _systemMonitorService = systemMonitorService;
+
+            ShowGraph = true;
+        }
 
         public override EModuleType ModuleType => EModuleType.MemoryUsage;
 
@@ -29,13 +38,6 @@ namespace Cajetan.Infobar.ViewModels
             set => SetProperty(ref _usage, value);
         }
 
-        public MemoryUsageViewModel(ISettingsService settings, ISystemInfoService systemInfo)
-        {
-            _settingsService = settings;
-            _systemInfoService = systemInfo;
-
-            ShowGraph = true;
-        }
 
         public override void Update()
         {
@@ -54,8 +56,14 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void RefreshData()
         {
-            Usage = _systemInfoService.MemoryUsageString;
-            Values.Add(_systemInfoService.MemoryUsedPercentage);
+            IMemoryInfo info = _systemMonitorService.Memory;
+
+            string memUsed = $"{info.Used:0} {info.Unit}";
+            string memTotal = $"{info.Total:0} {info.Unit}";
+            int memPercentage = Convert.ToInt32(info.Percentage);
+
+            Usage = $"{memUsed} / {memTotal}";
+            Values.Add(memPercentage);
         }
 
     }

@@ -2,6 +2,7 @@
 using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.ViewModels;
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -40,7 +41,7 @@ namespace Cajetan.Infobar
 
         public void Reset()
         {
-            if (_appbarEdge == appbar.ABEdge.None) 
+            if (_appbarEdge == appbar.ABEdge.None)
                 return;
 
             appbar.AppBarFunctions.SetAppBar(this, appbar.ABEdge.None, topMost: false);
@@ -62,18 +63,26 @@ namespace Cajetan.Infobar
 
             DataContext = _mainViewModel;
 
-#if DEBUG
-            ShowInTaskbar = true;
-#endif
-
             // Remove from Alt+Tab Switcher
             WindowInteropHelper wndHelper = new WindowInteropHelper(this);
             int exStyle = (int)GetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GWL_EXSTYLE);
             exStyle |= (int)ExtendedWindowStyles.WS_EX_TOOLWINDOW;
             SetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GWL_EXSTYLE, (IntPtr)exStyle);
 
-            // Dock
+#if DEBUG
+            Top = 1150;
+            Left = -1600;
+            ShowInTaskbar = true;
+            MouseDown += (s, e) =>
+            {
+                if (s is not Window w) return;
+                if (e.ChangedButton != MouseButton.Left) return;
+
+                w.DragMove();
+            };
+#else
             _mainViewModel.Dock();
+#endif
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -84,6 +93,12 @@ namespace Cajetan.Infobar
 #endif
         }
 
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            string wc = e.WidthChanged ? "T" : "F";
+            string hc = e.HeightChanged ? "T" : "F";
+            Debug.WriteLine($"Size Changed | W: {e.NewSize.Width,4:###0} ({wc}) | H: {e.NewSize.Height,4:###0} ({hc})");
+        }
 
 
         [Flags]
@@ -146,5 +161,6 @@ namespace Cajetan.Infobar
 
         [DllImport("kernel32.dll", EntryPoint = "SetLastError")]
         private static extern void SetLastError(int dwErrorCode);
+
     }
 }

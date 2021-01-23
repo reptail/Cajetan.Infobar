@@ -1,30 +1,35 @@
-﻿using Cajetan.Infobar.ViewModels;
+﻿using Cajetan.Infobar.Domain.AppBar;
+using Cajetan.Infobar.Domain.Models;
+using Cajetan.Infobar.Domain.Services;
+using Cajetan.Infobar.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Cajetan.Infobar.Design
 {
-    public class DesignViewModelLocator
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+    public partial class DesignViewModelLocator
     {
         private static readonly Random _random = new Random();
+
+        private static IFileSystemService FileSystemService { get; } = new DesignFileSystemService();
+        private static ISettingsService SettingsService { get; } = new DesignSettingsService();
+        private static ISystemMonitorService SystemMonitorService { get; } = new DesignSystemMonitorService();
+        private static IWindowService WindowService { get; } = new DesignWindowService();
+        private static IAppBarController AppBarController { get; } = new DesignAppBarController();
 
         public MainViewModel MainViewModel
         {
             get
             {
-                MainViewModel vm = new MainViewModel(null, null, null, null, null, Modules)
+                MainViewModel vm = new MainViewModel(AppBarController, SettingsService, WindowService, SystemMonitorService, OptionsViewModel, Modules)
                 {
                     BackgroundColor = "#FF3B3B3B",
                     ForegroundColor = "#FFF5F5F5",
                     BorderColor = "#FF5E6F7F",
 
-                    ActiveModules = new ObservableCollection<ModuleViewModelBase>()
-                    {
-                        UptimeViewModel,
-                        ProcessorUsageViewModel,
-                        MemoryUsageViewModel,
-                        //NetworkUsageViewModel
-                    }
+                    ActiveModules = new ObservableCollection<ModuleViewModelBase>(Modules)
                 };
 
                 return vm;
@@ -44,7 +49,7 @@ namespace Cajetan.Infobar.Design
         {
             get
             {
-                BatteryStatusViewModel vm = new BatteryStatusViewModel(null, null)
+                BatteryStatusViewModel vm = new BatteryStatusViewModel(SettingsService, SystemMonitorService)
                 {
                     Status = "56% (1h 40m)"
                 };
@@ -56,7 +61,7 @@ namespace Cajetan.Infobar.Design
         {
             get
             {
-                UptimeViewModel vm = new UptimeViewModel(null, null)
+                UptimeViewModel vm = new UptimeViewModel(SettingsService, SystemMonitorService)
                 {
                     Uptime = "0d 01:18:15"
                 };
@@ -69,7 +74,7 @@ namespace Cajetan.Infobar.Design
         {
             get
             {
-                ProcessorUsageViewModel vm = new ProcessorUsageViewModel(null, null)
+                ProcessorUsageViewModel vm = new ProcessorUsageViewModel(SettingsService, SystemMonitorService)
                 {
                     Usage = "7 %"
                 };
@@ -85,9 +90,9 @@ namespace Cajetan.Infobar.Design
         {
             get
             {
-                MemoryUsageViewModel vm = new MemoryUsageViewModel(null, null)
+                MemoryUsageViewModel vm = new MemoryUsageViewModel(SettingsService, SystemMonitorService)
                 {
-                    Usage = "3712MB / 12323MB"
+                    Usage = "13712MB / 32323MB"
                 };
 
                 for (int i = 0; i < 100; i++)
@@ -101,7 +106,7 @@ namespace Cajetan.Infobar.Design
         {
             get
             {
-                NetworkUsageViewModel vm = new NetworkUsageViewModel(null, null)
+                NetworkUsageViewModel vm = new NetworkUsageViewModel(SettingsService, SystemMonitorService)
                 {
                     Download = "81.2M",
                     Upload = "657.3K"
@@ -112,14 +117,16 @@ namespace Cajetan.Infobar.Design
         }
 
 
-
         public OptionsViewModel OptionsViewModel
         {
             get
             {
-                OptionsViewModel vm = new OptionsViewModel(null, null, OptionsModules);
-
-                vm.SelectedModuleOption = vm.ModuleOptions[2];
+                ModuleOptionsViewModelBase[] modules = OptionsModules;
+                OptionsViewModel vm = new OptionsViewModel(SettingsService, WindowService, modules)
+                {
+                    ModuleOptions = new ObservableCollection<ModuleOptionsViewModelBase>(modules),
+                    SelectedModuleOption = modules[2]
+                };
 
                 return vm;
             }
@@ -129,11 +136,11 @@ namespace Cajetan.Infobar.Design
         {
             get => new ModuleOptionsViewModelBase[]
             {
+                UptimeOptionsViewModel,
                 BatteryStatusOptionsViewModel,
                 MemoryUsageOptionsViewModel,
-                //NetworkUsageOptionsViewModel,
+                NetworkUsageOptionsViewModel,
                 ProcessorUsageOptionsViewModel,
-                UptimeOptionsViewModel
             };
         }
 
@@ -141,7 +148,7 @@ namespace Cajetan.Infobar.Design
         {
             get
             {
-                BatteryStatusOptionsViewModel vm = new BatteryStatusOptionsViewModel(null);
+                BatteryStatusOptionsViewModel vm = new BatteryStatusOptionsViewModel(SettingsService);
 
                 return vm;
             }
@@ -151,33 +158,34 @@ namespace Cajetan.Infobar.Design
         {
             get
             {
-                MemoryUsageOptionsViewModel vm = new MemoryUsageOptionsViewModel(null);
+                MemoryUsageOptionsViewModel vm = new MemoryUsageOptionsViewModel(SettingsService);
 
                 return vm;
             }
         }
 
-        //public NetworkUsageOptionsViewModel NetworkUsageOptionsViewModel
-        //{
-        //    get
-        //    {
-        //        var vm = new NetworkUsageOptionsViewModel(null)
-        //        {
-        //            DisplayFormats = new Dictionary<string, NetworkDisplayFormat>()
-        //        };
-        //        vm.DisplayFormats.Add("Auto", NetworkDisplayFormat.Auto);
-        //        vm.DisplayFormats.Add("Kilobytes", NetworkDisplayFormat.Kilobytes);
-        //        vm.SelectedDisplayFormat = NetworkDisplayFormat.Kilobytes;
-
-        //        return vm;
-        //    }
-        //}
+        public NetworkUsageOptionsViewModel NetworkUsageOptionsViewModel
+        {
+            get
+            {
+                NetworkUsageOptionsViewModel vm = new NetworkUsageOptionsViewModel(SettingsService)
+                {
+                    DisplayFormats = new Dictionary<string, ENetworkDisplayFormat>
+                    {
+                        { "Auto", ENetworkDisplayFormat.Auto },
+                        { "Kilobytes", ENetworkDisplayFormat.Kilobytes }
+                    },
+                    SelectedDisplayFormat = ENetworkDisplayFormat.Kilobytes
+                };
+                return vm;
+            }
+        }
 
         public ProcessorUsageOptionsViewModel ProcessorUsageOptionsViewModel
         {
             get
             {
-                ProcessorUsageOptionsViewModel vm = new ProcessorUsageOptionsViewModel(null);
+                ProcessorUsageOptionsViewModel vm = new ProcessorUsageOptionsViewModel(SettingsService);
 
                 return vm;
             }
@@ -187,7 +195,7 @@ namespace Cajetan.Infobar.Design
         {
             get
             {
-                UptimeOptionsViewModel vm = new UptimeOptionsViewModel(null);
+                UptimeOptionsViewModel vm = new UptimeOptionsViewModel(SettingsService);
 
                 return vm;
             }

@@ -16,7 +16,7 @@ namespace Cajetan.Infobar.ViewModels
         private readonly IAppBarController _appBar;
         private readonly ISettingsService _settingsService;
         private readonly IWindowService _windowService;
-        private readonly ISystemInfoService _systemInfoService;
+        private readonly ISystemMonitorService _systemInfoService;
         private readonly OptionsViewModel _optionsViewModel;
 
         private readonly Timer _timer;
@@ -29,7 +29,7 @@ namespace Cajetan.Infobar.ViewModels
         private ObservableCollection<ModuleViewModelBase> _activeModules;
 
 
-        public MainViewModel(IAppBarController appBar, ISettingsService settings, IWindowService windowService, ISystemInfoService systemInfoService,
+        public MainViewModel(IAppBarController appBar, ISettingsService settings, IWindowService windowService, ISystemMonitorService systemInfoService,
                              OptionsViewModel optionsViewModel, ModuleViewModelBase[] availableModules)
         {
             _appBar = appBar ?? throw new ArgumentNullException(nameof(appBar));
@@ -121,7 +121,7 @@ namespace Cajetan.Infobar.ViewModels
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             // Update system info
-            _systemInfoService.UpdateInfo();
+            _systemInfoService.Update();
 
             // Refresh modules
             foreach (ModuleViewModelBase m in ActiveModules)
