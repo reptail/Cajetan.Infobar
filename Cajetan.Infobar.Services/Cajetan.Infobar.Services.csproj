@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.1" />
-    <PackageReference Include="Hardware.Info" Version="1.0.0.0" />
+    <PackageReference Include="Hardware.Info" Version="1.0.0.1" />
   </ItemGroup>
 
   <ItemGroup>
