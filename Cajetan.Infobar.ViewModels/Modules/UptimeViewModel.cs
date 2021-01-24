@@ -1,4 +1,4 @@
-using Cajetan.Infobar.Domain.Models;
+﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 using System;
 
@@ -13,6 +13,7 @@ namespace Cajetan.Infobar.ViewModels
         private string _uptime;
 
         public UptimeViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
+            : base(settings)
         {
             _settingsService = settings;
             _systemMonitorService = systemMonitorService;
@@ -34,7 +35,7 @@ namespace Cajetan.Infobar.ViewModels
             set => SetProperty(ref _uptime, value);
         }
 
-        public override void Update()
+        protected override void InternalUpdate()
         {
             if (_settingsService.TryGet(SettingsKeys.UPTIME_IS_ENABLED, out bool isEnabled))
                 IsEnabled = isEnabled;

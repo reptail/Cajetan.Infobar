@@ -1,4 +1,4 @@
-using Cajetan.Infobar.Domain.Models;
+﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 
 namespace Cajetan.Infobar.ViewModels
@@ -13,6 +13,7 @@ namespace Cajetan.Infobar.ViewModels
         private ENetworkDisplayFormat _displayFormat;
 
         public NetworkUsageViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
+            : base(settings)
         {
             _settingsService = settings;
             _systemMonitorService = systemMonitorService;
@@ -32,7 +33,7 @@ namespace Cajetan.Infobar.ViewModels
             set => SetProperty(ref _download, value);
         }
 
-        public override void Update()
+        protected override void InternalUpdate()
         {
             if (_settingsService.TryGet(SettingsKeys.NETWORK_IS_ENABLED, out bool isEnabled))
                 IsEnabled = isEnabled;

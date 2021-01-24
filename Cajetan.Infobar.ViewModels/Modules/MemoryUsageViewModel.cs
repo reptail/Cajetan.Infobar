@@ -1,4 +1,4 @@
-using Cajetan.Infobar.Domain.Models;
+﻿using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -15,6 +15,7 @@ namespace Cajetan.Infobar.ViewModels
         private readonly ObservableCollection<int> _values = new ObservableCollection<int>();
 
         public MemoryUsageViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
+            : base(settings)
         {
             _settingsService = settings;
             _systemMonitorService = systemMonitorService;
@@ -39,7 +40,7 @@ namespace Cajetan.Infobar.ViewModels
         }
 
 
-        public override void Update()
+        protected override void InternalUpdate()
         {
             if (_settingsService.TryGet(SettingsKeys.MEMORY_IS_ENABLED, out bool isEnabled))
                 IsEnabled = isEnabled;
