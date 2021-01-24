@@ -10,16 +10,51 @@
              Padding="5"  Background="{StaticResource BackgroundColor}"             
              x:Name="optionsView">
     <UserControl.Resources>
+        <!-- Custom Button Control Template -->
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#4b6173"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#4d708c"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#262626"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        
+        <ControlTemplate x:Key="DarkModeButtonTemplate" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true"
+                    BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" 
+                                  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        
+        <!-- Other Styles -->
         <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+        </Style>
+        <Style TargetType="fa:SvgAwesome">
             <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
         </Style>
         <Style TargetType="CheckBox">
             <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
         </Style>
-        <Style TargetType="Button">
+        <Style x:Key="ButtonOverrideOverride" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
             <Setter Property="Background" Value="{StaticResource BackgroundColorAlt}" />
+            <Setter Property="Template" Value="{StaticResource DarkModeButtonTemplate}" />
         </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonOverrideOverride}" />
 
         <Thickness x:Key="ButtonPadding">8 1</Thickness>
         <Thickness x:Key="TextColorMargin">5 0</Thickness>
@@ -143,7 +178,9 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
 
-                                    <Image Grid.RowSpan="3" Source="{Binding ModuleType, Converter={StaticResource ModuleTypeToImageResourceConverter}, ConverterParameter=24}" Width="24" HorizontalAlignment="Left" />
+                                    <fa:SvgAwesome Grid.RowSpan="2" Width="24" HorizontalAlignment="Left" Foreground="{StaticResource ForegroundColor}"
+                                                   Icon="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeIconConverter}}"
+                                                   Rotation="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeRotationConverter}}" />
 
                                     <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding DisplayName}" FontSize="13" FontWeight="SemiBold" />
                                     <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Description}" FontStyle="Italic" TextWrapping="Wrap" />
@@ -213,13 +250,11 @@
 
             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                 <StackPanel.Resources>
-                    <Style TargetType="Button">
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonOverrideOverride}">
                         <Setter Property="Width" Value="76" />
                         <Setter Property="Height" Value="26" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="Margin" Value="5 0 5 0" />
-                        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
-                        <Setter Property="Background" Value="{StaticResource BackgroundColorAlt}" />
                     </Style>
                 </StackPanel.Resources>
 

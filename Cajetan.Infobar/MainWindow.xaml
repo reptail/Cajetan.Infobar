@@ -4,12 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:Cajetan.Infobar.Views"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d" d:DataContext="{Binding MainViewModel, Source={StaticResource DesignViewModelLocator}}"
         Width="1000" Height="23" ShowInTaskbar="False" KeyDown="OnKeyDown" Loaded="OnLoaded" SizeChanged="OnSizeChanged"
         Name="mainWin" Title="Cajetan Infobar" WindowStyle="None" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontSize="11" Icon="Resources/Icons/infobar-icon.ico"
         Background="{Binding BackgroundColor}" Foreground="{Binding ForegroundColor}">
 
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{Binding ForegroundColor}" />
+        </Style>
+        <Style TargetType="fa:SvgAwesome">
+            <Setter Property="Foreground" Value="{Binding ForegroundColor}" />
+        </Style>
+    </Window.Resources>
+    
     <Window.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Options" Command="{Binding OpenSettingsCommand}" />

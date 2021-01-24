@@ -13,6 +13,7 @@ namespace Cajetan.Infobar.ViewModels
         private string _status;
 
         public BatteryStatusViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
+            : base(settings)
         {
             _settingsService = settings;
             _systemMonitorService = systemMonitorService;
@@ -34,19 +35,19 @@ namespace Cajetan.Infobar.ViewModels
             set => SetProperty(ref _status, value);
         }
 
-        public override void Update()
+        protected override void InternalUpdate()
         {
-            if (_settingsService.Contains("Module_Battery_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Battery_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Battery_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Battery_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains("Module_Battery_ShowText"))
-                ShowText = _settingsService.Get<bool>("Module_Battery_ShowText");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TEXT, out bool showText))
+                ShowText = showText;
 
-            if (_settingsService.Contains("Module_Battery_ShowTime"))
-                ShowTime = _settingsService.Get<bool>("Module_Battery_ShowTime");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TIME, out bool showTime))
+                ShowTime = showTime;
         }
 
         public override void RefreshData()

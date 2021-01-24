@@ -15,6 +15,7 @@ namespace Cajetan.Infobar.ViewModels
         private readonly ObservableCollection<int> _values;
 
         public ProcessorUsageViewModel(ISettingsService settings, ISystemMonitorService systemMonitorService)
+            : base(settings)
         {
             _settingsService = settings;
             _systemMonitorService = systemMonitorService;
@@ -37,19 +38,19 @@ namespace Cajetan.Infobar.ViewModels
 
         public ObservableCollection<int> Values { get { return _values; } }
 
-        public override void Update()
+        protected override void InternalUpdate()
         {
-            if (_settingsService.Contains("Module_Processor_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Processor_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.PROCESSOR_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Processor_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Processor_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.PROCESSOR_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains("Module_Processor_ShowText"))
-                ShowText = _settingsService.Get<bool>("Module_Processor_ShowText");
+            if (_settingsService.TryGet(SettingsKeys.PROCESSOR_SHOW_TEXT, out bool showText))
+                ShowText = showText;
 
-            if (_settingsService.Contains("Module_Processor_ShowGraph"))
-                ShowGraph = _settingsService.Get<bool>("Module_Processor_ShowGraph");
+            if (_settingsService.TryGet(SettingsKeys.PROCESSOR_SHOW_GRAPH, out bool showGraph))
+                ShowGraph = showGraph;
         }
 
         public override void RefreshData()

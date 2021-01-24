@@ -23,7 +23,11 @@ namespace Cajetan.Infobar.Services
             _fileSystemService = fileSystemService;
             _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
 
+#if DEBUG
+            _settingsFilePath = _fileSystemService.PathCombineWithAppData("Settings_DEV.cfg");
+#else
             _settingsFilePath = _fileSystemService.PathCombineWithAppData("Settings.cfg");
+#endif
 
             Initialize();
         }
@@ -134,13 +138,25 @@ namespace Cajetan.Infobar.Services
 
         public T Get<T>(string key)
         {
-            if (!Contains(key))
+            if (!TryGet(key, out T value))
                 return default;
 
-            if (typeof(T).IsEnum)
-                return (T)Enum.Parse(typeof(T), _settings[key].ToString());
+            return value;
+        }
 
-            return (T)Convert.ChangeType(_settings[key], typeof(T));
+        public bool TryGet<T>(string key, out T value)
+        {
+            value = default;
+
+            if (!_settings.ContainsKey(key))
+                return false;
+
+            if (typeof(T).IsEnum)
+                value = (T)Enum.Parse(typeof(T), _settings[key].ToString());
+            else
+                value = (T)Convert.ChangeType(_settings[key], typeof(T));
+
+            return true;
         }
 
         public void Set<T>(string key, T value)

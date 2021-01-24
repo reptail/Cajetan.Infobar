@@ -1,4 +1,5 @@
 ﻿using Cajetan.Infobar.Domain.AppBar;
+using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
@@ -86,6 +87,9 @@ namespace Cajetan.Infobar.ViewModels
                 _settingsService.SettingsUpdated -= SettingsService_SettingsUpdated;
                 _settingsService.SettingsUpdated += SettingsService_SettingsUpdated;
 
+                foreach (ModuleViewModelBase m in _availableModules)
+                    m.Update();
+
                 LoadFromSettings();
             }
 
@@ -136,32 +140,21 @@ namespace Cajetan.Infobar.ViewModels
 
         private void LoadFromSettings()
         {
-            if (_settingsService.Contains("General_BackgroundColor"))
-                BackgroundColor = _settingsService.Get<string>("General_BackgroundColor");
+            if (_settingsService.TryGet(SettingsKeys.GENERAL_BACKGROUND_COLOR, out string backgroundColor))
+                BackgroundColor = backgroundColor;
 
-            if (_settingsService.Contains("General_ForegroundColor"))
-                ForegroundColor = _settingsService.Get<string>("General_ForegroundColor");
+            if (_settingsService.TryGet(SettingsKeys.GENERAL_FOREGROUND_COLOR, out string foregroundColor))
+                ForegroundColor = foregroundColor;
 
-            if (_settingsService.Contains("General_BorderColor"))
-                BorderColor = _settingsService.Get<string>("General_BorderColor");
+            if (_settingsService.TryGet(SettingsKeys.GENERAL_BORDER_COLOR, out string borderColor))
+                BorderColor = borderColor;
 
-            if (_settingsService.Contains("General_RefreshInterval_Milliseconds"))
-                _timer.Interval = _settingsService.Get<int>("General_RefreshInterval_Milliseconds");
-
-            List<ModuleViewModelBase> modulesToActivate = new List<ModuleViewModelBase>();
-
-            foreach (ModuleViewModelBase item in _availableModules)
-            {
-                // Load module settings
-                item.Update();
-
-                // Add to active list if enabled
-                if (item.IsEnabled)
-                    modulesToActivate.Add(item);
-            }
+            if (_settingsService.TryGet(SettingsKeys.GENERAL_REFRESH_INTERVAL, out int refreshInterval))
+                _timer.Interval = refreshInterval;
 
             // Add sorted modules
-            ActiveModules = new ObservableCollection<ModuleViewModelBase>(modulesToActivate.OrderBy(m => m.SortOrder));
+            ModuleViewModelBase[] modulesToActivate = _availableModules.Where(m => m.IsEnabled).OrderBy(m => m.SortOrder).ToArray();
+            ActiveModules = new ObservableCollection<ModuleViewModelBase>(modulesToActivate);
         }
 
         private void SettingsService_SettingsUpdated(object sender, IEnumerable<string> e)
