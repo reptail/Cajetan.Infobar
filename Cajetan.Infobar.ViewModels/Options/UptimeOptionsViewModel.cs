@@ -20,34 +20,34 @@ namespace Cajetan.Infobar.ViewModels
         }
 
         public override EModuleType ModuleType => EModuleType.Uptime;
-        
+
         public bool ShowDays
         {
             get => _showDays;
             set => SetProperty(ref _showDays, value);
         }
-        
+
         public override void Update()
         {
-            if (_settingsService.Contains("Module_Uptime_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Uptime_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.UPTIME_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Uptime_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Uptime_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.UPTIME_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains("Module_Uptime_ShowText"))
-                ShowText = _settingsService.Get<bool>("Module_Uptime_ShowText");
+            if (_settingsService.TryGet(SettingsKeys.UPTIME_SHOW_TEXT, out bool showText))
+                ShowText = showText;
 
-            if (_settingsService.Contains("Module_Uptime_ShowDays"))
-                ShowDays = _settingsService.Get<bool>("Module_Uptime_ShowDays");
+            if (_settingsService.TryGet(SettingsKeys.UPTIME_SHOW_DAYS, out bool showDays))
+                ShowDays = showDays;
         }
 
         public override void Save()
         {
-            _settingsService.Set("Module_Uptime_IsEnabled", IsEnabled);
-            _settingsService.Set("Module_Uptime_SortOrder", SortOrder);
-            _settingsService.Set("Module_Uptime_ShowText", ShowText);
-            _settingsService.Set("Module_Uptime_ShowDays", ShowDays);
+            _settingsService.Set(SettingsKeys.UPTIME_IS_ENABLED, IsEnabled);
+            _settingsService.Set(SettingsKeys.UPTIME_SORT_ORDER, SortOrder);
+            _settingsService.Set(SettingsKeys.UPTIME_SHOW_TEXT, ShowText);
+            _settingsService.Set(SettingsKeys.UPTIME_SHOW_DAYS, ShowDays);
         }
     }
 }

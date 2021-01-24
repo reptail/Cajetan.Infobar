@@ -29,25 +29,25 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void Update()
         {
-            if (_settingsService.Contains("Module_Memory_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Memory_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.MEMORY_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Memory_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Memory_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.MEMORY_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains("Module_Memory_ShowText"))
-                ShowText = _settingsService.Get<bool>("Module_Memory_ShowText");
+            if (_settingsService.TryGet(SettingsKeys.MEMORY_SHOW_TEXT, out bool showText))
+                ShowText = showText;
 
-            if (_settingsService.Contains("Module_Memory_ShowGraph"))
-                ShowGraph = _settingsService.Get<bool>("Module_Memory_ShowGraph");
+            if (_settingsService.TryGet(SettingsKeys.MEMORY_SHOW_GRAPH, out bool showGraph))
+                ShowGraph = showGraph;
         }
 
         public override void Save()
         {
-            _settingsService.Set("Module_Memory_IsEnabled", IsEnabled);
-            _settingsService.Set("Module_Memory_SortOrder", SortOrder);
-            _settingsService.Set("Module_Memory_ShowText", ShowText);
-            _settingsService.Set("Module_Memory_ShowGraph", ShowGraph);
+            _settingsService.Set(SettingsKeys.MEMORY_IS_ENABLED, IsEnabled);
+            _settingsService.Set(SettingsKeys.MEMORY_SORT_ORDER, SortOrder);
+            _settingsService.Set(SettingsKeys.MEMORY_SHOW_TEXT, ShowText);
+            _settingsService.Set(SettingsKeys.MEMORY_SHOW_GRAPH, ShowGraph);
         }
     }
 }

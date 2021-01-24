@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Domain.Models;
+using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 using System;
 
@@ -36,17 +36,17 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void Update()
         {
-            if (_settingsService.Contains("Module_Battery_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Battery_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Battery_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Battery_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains("Module_Battery_ShowText"))
-                ShowText = _settingsService.Get<bool>("Module_Battery_ShowText");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TEXT, out bool showText))
+                ShowText = showText;
 
-            if (_settingsService.Contains("Module_Battery_ShowTime"))
-                ShowTime = _settingsService.Get<bool>("Module_Battery_ShowTime");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TIME, out bool showTime))
+                ShowTime = showTime;
         }
 
         public override void RefreshData()

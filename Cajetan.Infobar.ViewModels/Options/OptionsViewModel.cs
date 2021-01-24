@@ -1,4 +1,5 @@
-﻿using Cajetan.Infobar.Domain.Services;
+﻿using Cajetan.Infobar.Domain.Models;
+using Cajetan.Infobar.Domain.Services;
 using Cajetan.Infobar.Domain.ViewModels;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
@@ -111,17 +112,17 @@ namespace Cajetan.Infobar.ViewModels
             SelectedModuleOption = ModuleOptions?.FirstOrDefault();
 
             // Load general settings
-            if (_settingsService.Contains("General_BackgroundColor"))
-                BackgroundColor = _settingsService.Get<string>("General_BackgroundColor");
+            if (_settingsService.TryGet(SettingsKeys.GENERAL_BACKGROUND_COLOR, out string backgroundColor))
+                BackgroundColor = backgroundColor;
 
-            if (_settingsService.Contains("General_ForegroundColor"))
-                ForegroundColor = _settingsService.Get<string>("General_ForegroundColor");
+            if (_settingsService.TryGet(SettingsKeys.GENERAL_FOREGROUND_COLOR, out string foregroundColor))
+                ForegroundColor = foregroundColor;
 
-            if (_settingsService.Contains("General_BorderColor"))
-                BorderColor = _settingsService.Get<string>("General_BorderColor");
+            if (_settingsService.TryGet(SettingsKeys.GENERAL_BORDER_COLOR, out string borderColor))
+                BorderColor = borderColor;
 
-            if (_settingsService.Contains("General_RefreshInterval_Milliseconds"))
-                UpdateInterval = _settingsService.Get<int>("General_RefreshInterval_Milliseconds");
+            if (_settingsService.TryGet(SettingsKeys.GENERAL_REFRESH_INTERVAL, out int refreshInterval))
+                UpdateInterval = refreshInterval;
         }
 
         private void SelectColor(string title, string currentColor, Action<string> fieldAssignment)
@@ -165,10 +166,10 @@ namespace Cajetan.Infobar.ViewModels
                 module.Save();
 
             // Save general settings
-            _settingsService.Set("General_BackgroundColor", BackgroundColor);
-            _settingsService.Set("General_ForegroundColor", ForegroundColor);
-            _settingsService.Set("General_BorderColor", BorderColor);
-            _settingsService.Set("General_RefreshInterval_Milliseconds", UpdateInterval);
+            _settingsService.Set(SettingsKeys.GENERAL_BACKGROUND_COLOR, BackgroundColor);
+            _settingsService.Set(SettingsKeys.GENERAL_FOREGROUND_COLOR, ForegroundColor);
+            _settingsService.Set(SettingsKeys.GENERAL_BORDER_COLOR, BorderColor);
+            _settingsService.Set(SettingsKeys.GENERAL_REFRESH_INTERVAL, UpdateInterval);
 
             // Save changes
             _settingsService.SaveChanges();

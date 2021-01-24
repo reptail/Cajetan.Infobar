@@ -31,9 +31,13 @@ namespace Cajetan.Infobar.Design
         {
             public event EventHandler<IEnumerable<string>> SettingsUpdated;
 
-            public bool Contains(string key) => false;
-
             public T Get<T>(string key) => default;
+
+            public bool TryGet<T>(string key, out T value)
+            {
+                value = default;
+                return false;
+            }
 
             public void RaiseSettingsUpdated(IEnumerable<string> updatedKeys)
                 => SettingsUpdated?.Invoke(this, updatedKeys);

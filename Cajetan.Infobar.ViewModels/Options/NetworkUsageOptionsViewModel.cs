@@ -37,11 +37,11 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void Update()
         {
-            if (_settingsService.Contains("Module_Network_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Network_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.NETWORK_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Network_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Network_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.NETWORK_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
             DisplayFormats = new Dictionary<string, ENetworkDisplayFormat>
             {
@@ -52,14 +52,15 @@ namespace Cajetan.Infobar.ViewModels
                 { "Gigabytes (GB/s)", ENetworkDisplayFormat.Gigabytes }
             };
 
-            if (_settingsService.Contains("Module_Network_DisplayFormat"))
-                SelectedDisplayFormat = _settingsService.Get<ENetworkDisplayFormat>("Module_Network_DisplayFormat");
+            if (_settingsService.TryGet(SettingsKeys.NETWORK_DISPLAY_FORMAT, out ENetworkDisplayFormat displayFormat))
+                SelectedDisplayFormat = displayFormat;
         }
 
         public override void Save()
         {
-            _settingsService.Set("Module_Network_SortOrder", SortOrder);
-            _settingsService.Set("Module_Network_DisplayFormat", SelectedDisplayFormat);
+            _settingsService.Set(SettingsKeys.NETWORK_IS_ENABLED, IsEnabled);
+            _settingsService.Set(SettingsKeys.NETWORK_SORT_ORDER, SortOrder);
+            _settingsService.Set(SettingsKeys.NETWORK_DISPLAY_FORMAT, SelectedDisplayFormat);
         }
     }
 }

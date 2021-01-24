@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Domain.Models;
+using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -41,17 +41,17 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void Update()
         {
-            if (_settingsService.Contains("Module_Memory_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Memory_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.MEMORY_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Memory_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Memory_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.MEMORY_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains("Module_Memory_ShowText"))
-                ShowText = _settingsService.Get<bool>("Module_Memory_ShowText");
+            if (_settingsService.TryGet(SettingsKeys.MEMORY_SHOW_TEXT, out bool showText))
+                ShowText = showText;
 
-            if (_settingsService.Contains("Module_Memory_ShowGraph"))
-                ShowGraph = _settingsService.Get<bool>("Module_Memory_ShowGraph");
+            if (_settingsService.TryGet(SettingsKeys.MEMORY_SHOW_GRAPH, out bool showGraph))
+                ShowGraph = showGraph;
         }
 
         public override void RefreshData()

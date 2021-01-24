@@ -21,7 +21,7 @@ namespace Cajetan.Infobar.ViewModels
         }
 
         public override EModuleType ModuleType => EModuleType.BatteryStatus;
-        
+
         public bool ShowTime
         {
             get => _showTime;
@@ -30,25 +30,25 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void Update()
         {
-            if (_settingsService.Contains("Module_Battery_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Battery_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Battery_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Battery_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains("Module_Battery_ShowText"))
-                ShowText = _settingsService.Get<bool>("Module_Battery_ShowText");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TEXT, out bool showText))
+                ShowText = showText;
 
-            if (_settingsService.Contains("Module_Battery_ShowTime"))
-                ShowTime = _settingsService.Get<bool>("Module_Battery_ShowTime");
+            if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TIME, out bool showTime))
+                ShowTime = showTime;
         }
 
         public override void Save()
         {
-            _settingsService.Set("Module_Battery_IsEnabled", IsEnabled);
-            _settingsService.Set("Module_Battery_SortOrder", SortOrder);
-            _settingsService.Set("Module_Battery_ShowText", ShowText);
-            _settingsService.Set("Module_Battery_ShowTime", ShowTime);
+            _settingsService.Set(SettingsKeys.BATTERY_IS_ENABLED, IsEnabled);
+            _settingsService.Set(SettingsKeys.BATTERY_SORT_ORDER, SortOrder);
+            _settingsService.Set(SettingsKeys.BATTERY_SHOW_TEXT, ShowText);
+            _settingsService.Set(SettingsKeys.BATTERY_SHOW_TIME, ShowTime);
         }
     }
 }

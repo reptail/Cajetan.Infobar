@@ -29,25 +29,25 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void Update()
         {
-            if (_settingsService.Contains("Module_Processor_IsEnabled"))
-                IsEnabled = _settingsService.Get<bool>("Module_Processor_IsEnabled");
+            if (_settingsService.TryGet(SettingsKeys.PROCESSOR_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains("Module_Processor_SortOrder"))
-                SortOrder = _settingsService.Get<int>("Module_Processor_SortOrder");
+            if (_settingsService.TryGet(SettingsKeys.PROCESSOR_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains("Module_Processor_ShowText"))
-                ShowText = _settingsService.Get<bool>("Module_Processor_ShowText");
+            if (_settingsService.TryGet(SettingsKeys.PROCESSOR_SHOW_TEXT, out bool showText))
+                ShowText = showText;
 
-            if (_settingsService.Contains("Module_Processor_ShowGraph"))
-                ShowGraph = _settingsService.Get<bool>("Module_Processor_ShowGraph");
+            if (_settingsService.TryGet(SettingsKeys.PROCESSOR_SHOW_GRAPH, out bool showGraph))
+                ShowGraph = showGraph;
         }
 
         public override void Save()
         {
-            _settingsService.Set("Module_Processor_IsEnabled", IsEnabled);
-            _settingsService.Set("Module_Processor_SortOrder", SortOrder);
-            _settingsService.Set("Module_Processor_ShowText", ShowText);
-            _settingsService.Set("Module_Processor_ShowGraph", ShowGraph);
+            _settingsService.Set(SettingsKeys.PROCESSOR_IS_ENABLED, IsEnabled);
+            _settingsService.Set(SettingsKeys.PROCESSOR_SORT_ORDER, SortOrder);
+            _settingsService.Set(SettingsKeys.PROCESSOR_SHOW_TEXT, ShowText);
+            _settingsService.Set(SettingsKeys.PROCESSOR_SHOW_GRAPH, ShowGraph);
         }
     }
 }

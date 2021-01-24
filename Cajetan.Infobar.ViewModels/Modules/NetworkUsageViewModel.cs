@@ -1,14 +1,10 @@
-﻿using Cajetan.Infobar.Domain.Models;
+using Cajetan.Infobar.Domain.Models;
 using Cajetan.Infobar.Domain.Services;
 
 namespace Cajetan.Infobar.ViewModels
 {
     public class NetworkUsageViewModel : ModuleViewModelBase
     {
-        private const string IS_ENABLED_KEY = "Module_Network_IsEnabled";
-        private const string SORT_ORDER_KEY = "Module_Network_SortOrder";
-        private const string DISPLAY_FORMAT_KEY = "Module_Network_DisplayFormat";
-
         private readonly ISettingsService _settingsService;
         private readonly ISystemMonitorService _systemMonitorService;
 
@@ -38,14 +34,14 @@ namespace Cajetan.Infobar.ViewModels
 
         public override void Update()
         {
-            if (_settingsService.Contains(IS_ENABLED_KEY))
-                IsEnabled = _settingsService.Get<bool>(IS_ENABLED_KEY);
+            if (_settingsService.TryGet(SettingsKeys.NETWORK_IS_ENABLED, out bool isEnabled))
+                IsEnabled = isEnabled;
 
-            if (_settingsService.Contains(SORT_ORDER_KEY))
-                SortOrder = _settingsService.Get<int>(SORT_ORDER_KEY);
+            if (_settingsService.TryGet(SettingsKeys.NETWORK_SORT_ORDER, out int sortOrder))
+                SortOrder = sortOrder;
 
-            if (_settingsService.Contains(DISPLAY_FORMAT_KEY))
-                _displayFormat = _settingsService.Get<ENetworkDisplayFormat>(DISPLAY_FORMAT_KEY);
+            if (_settingsService.TryGet(SettingsKeys.NETWORK_DISPLAY_FORMAT, out ENetworkDisplayFormat displayFormat))
+                _displayFormat = displayFormat;
         }
 
         public override void RefreshData()
