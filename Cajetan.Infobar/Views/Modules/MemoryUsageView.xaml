@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Cajetan.Infobar.Views.MemoryUsageView"
+<UserControl x:Class="Cajetan.Infobar.Views.MemoryUsageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
              xmlns:v="clr-namespace:Cajetan.Infobar.Views"
              mc:Ignorable="d" d:DesignHeight="23" Margin="5 0 5 0"
              d:DataContext="{Binding MemoryUsageViewModel, Source={StaticResource DesignViewModelLocator}}">
-    <Grid>
+    <Grid Margin="5 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="18" />
             <ColumnDefinition Width="55" />

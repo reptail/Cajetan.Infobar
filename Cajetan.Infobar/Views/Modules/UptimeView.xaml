@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Cajetan.Infobar.Views.UptimeView"
+<UserControl x:Class="Cajetan.Infobar.Views.UptimeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" d:DesignHeight="23" Margin="5 0 5 0"
              d:DataContext="{Binding UptimeViewModel, Source={StaticResource DesignViewModelLocator}}">
-    
+    <Grid Margin="5 0">
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="18" />
