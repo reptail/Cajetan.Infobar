@@ -15,7 +15,9 @@
             <ColumnDefinition Width="75"/>
         </Grid.ColumnDefinitions>
 
-        <fa:SvgAwesome Grid.Column="0" Icon="Solid_Memory"  Margin="1 0 1 0" />
+        <fa:SvgAwesome Grid.Column="0" Margin="1 0 1 0" 
+                       Icon="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeIconConverter}}"
+                       Rotation="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeRotationConverter}}" />
 
         <TextBlock Grid.Column="1" Text="Memory:" VerticalAlignment="Center" TextAlignment="Center" />
         <TextBlock Grid.Column="2" Text="{Binding Usage, FallbackValue='11234M / 24321M'}" VerticalAlignment="Center" TextAlignment="Center" />

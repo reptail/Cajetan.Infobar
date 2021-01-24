@@ -14,7 +14,9 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <fa:SvgAwesome Grid.Column="0" Icon="Solid_BatteryThreeQuarters" Rotation="270" Margin="0 2" />
+        <fa:SvgAwesome Grid.Column="0" Margin="0 2" 
+                       Icon="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeIconConverter}}"
+                       Rotation="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeRotationConverter}}" />
 
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" 
                Text="Battery:" Margin="3 0 0 0" />

@@ -13,7 +13,9 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <fa:SvgAwesome Grid.Column="0" Icon="Regular_Clock"  Margin="2 2 2 3" />
+        <fa:SvgAwesome Grid.Column="0" Margin="2 2 2 3" 
+                       Icon="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeIconConverter}}"
+                       Rotation="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeRotationConverter}}" />
         
         <TextBlock Grid.Column="1" Text="Uptime:" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <TextBlock Grid.Column="2" Text="{Binding Uptime, FallbackValue='4d 22:12:22'}" VerticalAlignment="Center" />

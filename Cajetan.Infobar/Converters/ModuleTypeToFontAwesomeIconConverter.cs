@@ -15,7 +15,7 @@ namespace Cajetan.Infobar.Converters
 
             return moduleType switch
             {
-                EModuleType.Uptime => EFontAwesomeIcon.Solid_Clock,
+                EModuleType.Uptime => EFontAwesomeIcon.Regular_Clock,
                 EModuleType.BatteryStatus => EFontAwesomeIcon.Solid_BatteryThreeQuarters,
                 EModuleType.ProcessorUsage => EFontAwesomeIcon.Solid_Microchip,
                 EModuleType.MemoryUsage => EFontAwesomeIcon.Solid_Memory,
