@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Cajetan.Infobar.Views.OptionsView"
+<UserControl x:Class="Cajetan.Infobar.Views.OptionsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,6 +11,9 @@
              x:Name="optionsView">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+        </Style>
+        <Style TargetType="fa:SvgAwesome">
             <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
         </Style>
         <Style TargetType="CheckBox">
@@ -143,7 +146,9 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
 
-                                    <Image Grid.RowSpan="3" Source="{Binding ModuleType, Converter={StaticResource ModuleTypeToImageResourceConverter}, ConverterParameter=24}" Width="24" HorizontalAlignment="Left" />
+                                    <fa:SvgAwesome Grid.RowSpan="2" Width="24" HorizontalAlignment="Left" Foreground="{StaticResource ForegroundColor}"
+                                                   Icon="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeIconConverter}}"
+                                                   Rotation="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeRotationConverter}}" />
 
                                     <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding DisplayName}" FontSize="13" FontWeight="SemiBold" />
                                     <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Description}" FontStyle="Italic" TextWrapping="Wrap" />
