@@ -1,20 +1,19 @@
-<UserControl x:Class="Cajetan.Infobar.Views.UptimeView"
+﻿<UserControl x:Class="Cajetan.Infobar.Views.UptimeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="23" Margin="5 0 5 0"
+             xmlns:fa="http://schemas.fontawesome.com/icons/"
+             mc:Ignorable="d" d:DesignHeight="23"
              d:DataContext="{Binding UptimeViewModel, Source={StaticResource DesignViewModelLocator}}">
     <Grid Margin="5 0">
-    <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="18" />
             <ColumnDefinition Width="50" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1 2 1 2"
-               Source="{Binding ModuleType, Converter={StaticResource ModuleTypeToImageResourceConverter}, ConverterParameter=24}" />
+        <fa:SvgAwesome Grid.Column="0" Icon="Regular_Clock"  Margin="2 2 2 3" />
         
         <TextBlock Grid.Column="1" Text="Uptime:" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <TextBlock Grid.Column="2" Text="{Binding Uptime, FallbackValue='4d 22:12:22'}" VerticalAlignment="Center" />

@@ -1,32 +1,31 @@
-<UserControl x:Class="Cajetan.Infobar.Views.NetworkUsageView"
+﻿<UserControl x:Class="Cajetan.Infobar.Views.NetworkUsageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="23" Margin="5 0 5 0"
+             xmlns:fa="http://schemas.fontawesome.com/icons/"
+             mc:Ignorable="d" d:DesignHeight="23"
              d:DataContext="{Binding NetworkUsageViewModel, Source={StaticResource DesignViewModelLocator}}">
     <Grid Margin="5 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="18" />
+            <ColumnDefinition Width="4" />
             <ColumnDefinition Width="15" />
             <ColumnDefinition Width="45" />
             <ColumnDefinition Width="15"/>
             <ColumnDefinition Width="45" />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1 2 1 2"
-               Source="{Binding ModuleType, Converter={StaticResource ModuleTypeToImageResourceConverter}, ConverterParameter=24}" />
+        <fa:SvgAwesome Grid.Column="0" Icon="Solid_NetworkWired"  Margin="1 0 1 2" />
 
-        <Image Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
-               Source="pack://application:,,,/Resources/Images/gray_down_8.png" Width="8" />
+        <fa:SvgAwesome Grid.Column="2" Icon="Solid_ArrowDown" Width="10" Foreground="#00a300" Margin="0 1 0 0" />
 
-        <TextBlock Grid.Column="2" Name="txtDown" Text="{Binding Download, FallbackValue='1111.9K'}" Margin="2 0 0 0"
+        <TextBlock Grid.Column="3" Name="txtDown" Text="{Binding Download, FallbackValue='1111.9K'}" Margin="2 0 0 0"
                    HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <Image Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" 
-               Source="pack://application:,,,/Resources/Images/gray_up_8.png" Width="8" />
+        <fa:SvgAwesome Grid.Column="4" Icon="Solid_ArrowUp" Width="10" Foreground="#db0000" Margin="0 1 0 0" />
 
-        <TextBlock Grid.Column="4" Name="txtUp" Text="{Binding Upload, FallbackValue='1111.9K'}" Margin="2 0 0 0"
+        <TextBlock Grid.Column="5" Name="txtUp" Text="{Binding Upload, FallbackValue='1111.9K'}" Margin="2 0 0 0"
                    HorizontalAlignment="Left" VerticalAlignment="Center" />
 
     </Grid>

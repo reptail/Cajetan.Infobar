@@ -1,9 +1,10 @@
-<UserControl x:Class="Cajetan.Infobar.Views.BatteryStatusView"
+﻿<UserControl x:Class="Cajetan.Infobar.Views.BatteryStatusView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="23" Margin="5 0 5 0"
+             xmlns:fa="http://schemas.fontawesome.com/icons/"
+             mc:Ignorable="d" d:DesignHeight="23"
              d:DataContext="{Binding BatteryStatusViewModel, Source={StaticResource DesignViewModelLocator}}">
     <Grid Margin="5 0">
         <Grid.ColumnDefinitions>
@@ -13,8 +14,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1 2 1 3"
-               Source="{Binding ModuleType, Converter={StaticResource ModuleTypeToImageResourceConverter}, ConverterParameter=24}" />
+        <fa:SvgAwesome Grid.Column="0" Icon="Solid_BatteryThreeQuarters" Rotation="270" Margin="0 2" />
 
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" 
                Text="Battery:" Margin="3 0 0 0" />
