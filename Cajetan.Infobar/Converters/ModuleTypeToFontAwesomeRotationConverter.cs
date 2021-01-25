@@ -12,7 +12,7 @@ namespace Cajetan.Infobar.Converters
             if (value is not EModuleType moduleType) 
                 return value;
 
-            return moduleType == EModuleType.BatteryStatus ? 270 : 0;
+            return moduleType == EModuleType.BatteryStatus ? 0 : 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

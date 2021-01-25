@@ -9,17 +9,17 @@
     <Grid Margin="5 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="18" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="53" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <fa:SvgAwesome Grid.Column="0" Margin="0 2" 
+        <fa:SvgAwesome Grid.Column="0" Margin="0 2 0 2" 
                        Icon="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeIconConverter}}"
                        Rotation="{Binding ModuleType, Converter={StaticResource ModuleTypeToFontAwesomeRotationConverter}}" />
 
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" 
-               Text="Battery:" Margin="3 0 0 0" />
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Left" 
+               Text="Battery:" />
 
         <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Left" 
                Text="{Binding Status, FallbackValue='57 % (1h 51m)'}" Margin="3 0 3 0" />
