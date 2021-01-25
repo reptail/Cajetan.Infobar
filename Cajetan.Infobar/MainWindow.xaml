@@ -6,9 +6,10 @@
         xmlns:v="clr-namespace:Cajetan.Infobar.Views"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d" d:DataContext="{Binding MainViewModel, Source={StaticResource DesignViewModelLocator}}"
-        Width="1000" Height="23" ShowInTaskbar="False" KeyDown="OnKeyDown" Loaded="OnLoaded" SizeChanged="OnSizeChanged"
-        Name="mainWin" Title="Cajetan Infobar" WindowStyle="None" 
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontSize="11" Icon="Resources/Icons/infobar-icon.ico"
+        Name="mainWin" KeyDown="OnKeyDown" Loaded="OnLoaded" SizeChanged="OnSizeChanged"
+        Width="1000" Height="23" MinHeight="23" MaxHeight="23" 
+        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" 
+        Title="Cajetan Infobar" Icon="Resources/Icons/infobar-icon.ico" FontSize="11"
         Background="{Binding BackgroundColor}" Foreground="{Binding ForegroundColor}">
 
     <Window.Resources>
