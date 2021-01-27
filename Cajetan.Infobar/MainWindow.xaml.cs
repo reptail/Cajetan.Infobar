@@ -19,7 +19,6 @@ namespace Cajetan.Infobar
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
     public partial class MainWindow : Window, IAppBarController
     {
-        private ILogger _logger;
         private MainViewModel _mainViewModel;
 
         private appbar.ABEdge _appbarEdge = appbar.ABEdge.None;
@@ -63,7 +62,6 @@ namespace Cajetan.Infobar
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            _logger = AutofacConfig.Resolve<ILogger>();
             _mainViewModel = AutofacConfig.Resolve<MainViewModel>();
             _mainViewModel.Initialize();
 
@@ -99,18 +97,20 @@ namespace Cajetan.Infobar
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
+            ILogger logger = AutofacConfig.Resolve<ILogger>();
+
             string widthChanged = e.WidthChanged ? "T" : "F";
             string heightChanged = e.HeightChanged ? "T" : "F";
-            _logger.Information(
+            logger?.Information(
                 "Size Changed | W: {NewWidth,4:###0} ({WidthChanged:l}) | H: {NewHeight,4:###0} ({HeightChanged:l})",
                 e.NewSize.Width, widthChanged,
                 e.NewSize.Height, heightChanged
             );
 
             if (e.NewSize.Width <= 0)
-                _logger.Error("New Width {NewWidth} was Invalid!", e.NewSize.Width);
+                logger?.Error("New Width {NewWidth} was Invalid!", e.NewSize.Width);
             if (e.NewSize.Height <= 0)
-                _logger.Error("New Height {NewHeight} was Invalid!", e.NewSize.Height);
+                logger?.Error("New Height {NewHeight} was Invalid!", e.NewSize.Height);
         }
 
         [Flags]
