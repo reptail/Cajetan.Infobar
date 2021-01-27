@@ -36,6 +36,8 @@ namespace Cajetan.Infobar
         {
             base.OnStartup(e);
 
+            Microsoft.Win32.SystemEvents.SessionEnding += SystemEvents_SessionEnding;
+
             MainWindow mainWindow = new MainWindow();
             Current.MainWindow = mainWindow;
 
@@ -46,9 +48,21 @@ namespace Cajetan.Infobar
 
         protected override void OnExit(ExitEventArgs e)
         {
-            AutofacConfig.Dispose();
+            try
+            {
+                AutofacConfig.Dispose();
+            }
+            finally
+            {
+                Microsoft.Win32.SystemEvents.SessionEnding -= SystemEvents_SessionEnding;
+            }
 
             base.OnExit(e);
+        }
+
+        private void SystemEvents_SessionEnding(object sender, Microsoft.Win32.SessionEndingEventArgs e)
+        {
+            Shutdown();
         }
     }
 }
