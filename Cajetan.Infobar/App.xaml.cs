@@ -1,6 +1,6 @@
 ﻿using Cajetan.Infobar.Config;
+using Serilog;
 using System;
-using System.Diagnostics;
 using System.Runtime.ExceptionServices;
 using System.Windows;
 
@@ -14,15 +14,22 @@ namespace Cajetan.Infobar
         public App()
         {
             AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+        }
 
+        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            if (e?.Exception is null)
+                Log.Error("Unhandled Exception, but Exception object was NULL!");
+            else
+                Log.Fatal(e.Exception, "Unhandled Exception! {ExceptionMessage:l}", e.Exception.Message);
         }
 
         private void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
         {
-            string msg = e.Exception.Message;
-            string st = e.Exception.StackTrace;
+            if (e?.Exception is null) return;
 
-            Debug.WriteLine("{0}\n{1}", msg, st);
+            Log.Debug(e.Exception, "First Change Exception: {ExceptionMessage:l}", e.Exception.Message);
         }
 
         protected override void OnStartup(StartupEventArgs e)

@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Config;
+using Cajetan.Infobar.Config;
 using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.ViewModels;
 using System;
@@ -55,6 +55,7 @@ namespace Cajetan.Infobar
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            _logger = AutofacConfig.Resolve<ILogger>();
             _mainViewModel = AutofacConfig.Resolve<MainViewModel>();
             _mainViewModel.Initialize();
 
@@ -92,9 +93,18 @@ namespace Cajetan.Infobar
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            string wc = e.WidthChanged ? "T" : "F";
-            string hc = e.HeightChanged ? "T" : "F";
-            Debug.WriteLine($"Size Changed | W: {e.NewSize.Width,4:###0} ({wc}) | H: {e.NewSize.Height,4:###0} ({hc})");
+            string widthChanged = e.WidthChanged ? "T" : "F";
+            string heightChanged = e.HeightChanged ? "T" : "F";
+            _logger.Information(
+                "Size Changed | W: {NewWidth,4:###0} ({WidthChanged:l}) | H: {NewHeight,4:###0} ({HeightChanged:l})",
+                e.NewSize.Width, widthChanged,
+                e.NewSize.Height, heightChanged
+            );
+
+            if (e.NewSize.Width <= 0)
+                _logger.Error("New Width {NewWidth} was Invalid!", e.NewSize.Width);
+            if (e.NewSize.Height <= 0)
+                _logger.Error("New Height {NewHeight} was Invalid!", e.NewSize.Height);
         }
 
         [Flags]
