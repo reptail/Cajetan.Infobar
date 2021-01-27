@@ -1,31 +1,14 @@
 ﻿using Cajetan.Infobar.Domain.Services;
-using System;
+using Cajetan.Infobar.Services.Helpers;
 using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Cajetan.Infobar.Services
 {
     public class FileSystemService : IFileSystemService
     {
-        public string GetAppDataPath()
-        {
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string assemblyName = GetAssembly().GetName().Name;
-            return Path.Combine(appDataPath, assemblyName);
-
-        }
-
-        public string GetAssemblyPath()
-        {
-            Assembly assembly = GetAssembly();
-            return Path.GetDirectoryName(assembly.Location);
-
-        }
-
         public string PathCombineWithAppData(string segment)
         {
-            string appDataPath = GetAppDataPath();
+            string appDataPath = AppDataHelper.GetAppDataPath();
             string combined = PathCombine(appDataPath, segment);
             return combined;
         }
@@ -63,15 +46,5 @@ namespace Cajetan.Infobar.Services
 
             sw.Write(content);
         }
-
-        private static Assembly GetAssembly()
-        {
-            Assembly assembly =
-                Assembly.GetEntryAssembly()
-                ?? Assembly.GetExecutingAssembly()
-                ?? throw new InvalidOperationException("Unable to get Entry or Executing Assembly!");
-            return assembly;
-        }
-
     }
 }
