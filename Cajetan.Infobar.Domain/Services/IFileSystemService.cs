@@ -4,8 +4,6 @@ namespace Cajetan.Infobar.Domain.Services
 {
     public interface IFileSystemService
     {
-        string GetAppDataPath();
-        string GetAssemblyPath();
         string PathCombineWithAppData(string segment);
         string PathCombine(params string[] segments);
 

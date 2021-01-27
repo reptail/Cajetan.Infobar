@@ -1,6 +1,7 @@
 ﻿using Cajetan.Infobar.Config;
 using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.ViewModels;
+using Serilog;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -25,6 +26,12 @@ namespace Cajetan.Infobar
         public MainWindow()
         {
             InitializeComponent();
+
+            Loaded += OnLoaded;
+            SizeChanged += OnSizeChanged;
+#if DEBUG
+            KeyDown += OnKeyDown;
+#endif
         }
 
         public void DockBottom()
@@ -84,17 +91,26 @@ namespace Cajetan.Infobar
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-#if DEBUG
             if (e.Key == Key.Escape)
                 _mainViewModel.Close();
-#endif
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            string wc = e.WidthChanged ? "T" : "F";
-            string hc = e.HeightChanged ? "T" : "F";
-            Debug.WriteLine($"Size Changed | W: {e.NewSize.Width,4:###0} ({wc}) | H: {e.NewSize.Height,4:###0} ({hc})");
+            ILogger logger = AutofacConfig.Resolve<ILogger>();
+
+            string widthChanged = e.WidthChanged ? "T" : "F";
+            string heightChanged = e.HeightChanged ? "T" : "F";
+            logger?.Information(
+                "Size Changed | W: {NewWidth,4:###0} ({WidthChanged:l}) | H: {NewHeight,4:###0} ({HeightChanged:l})",
+                e.NewSize.Width, widthChanged,
+                e.NewSize.Height, heightChanged
+            );
+
+            if (e.NewSize.Width <= 0)
+                logger?.Error("New Width {NewWidth} was Invalid!", e.NewSize.Width);
+            if (e.NewSize.Height <= 0)
+                logger?.Error("New Height {NewHeight} was Invalid!", e.NewSize.Height);
         }
 
         [Flags]

@@ -14,7 +14,7 @@
   <PropertyGroup>
     <Title>Cajetan Infobar</Title>
     <Description>AppBar showing system information like CPU, RAM and Network usages.</Description>
-    <Version>2.0.3</Version>
+    <Version>2.0.4</Version>
   </PropertyGroup>
   
   <ItemGroup>
@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
     <PackageReference Include="WpfAppBar" Version="3.0.0" />
     <PackageReference Include="TAlex.WPF.Controls" Version="3.0.2" />
     <PackageReference Include="FontAwesome5" Version="2.0.8" />

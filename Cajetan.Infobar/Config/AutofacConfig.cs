@@ -33,6 +33,7 @@ namespace Cajetan.Infobar.Config
 
         private static void RegisterMisc(ContainerBuilder cb, MainWindow mainWindow)
         {
+            cb.RegisterInstance(SerilogConfig.Initialize());
             cb.RegisterInstance(mainWindow)
                 .As<IAppBarController>()
                 .ExternallyOwned();
