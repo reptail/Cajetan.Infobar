@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
     <PackageReference Include="WpfAppBar" Version="3.0.0" />
     <PackageReference Include="TAlex.WPF.Controls" Version="3.0.2" />
     <PackageReference Include="FontAwesome5" Version="2.0.8" />
