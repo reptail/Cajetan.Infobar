@@ -1,6 +1,7 @@
-using Cajetan.Infobar.Config;
+﻿using Cajetan.Infobar.Config;
 using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.ViewModels;
+using Serilog;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -18,6 +19,7 @@ namespace Cajetan.Infobar
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
     public partial class MainWindow : Window, IAppBarController
     {
+        private ILogger _logger;
         private MainViewModel _mainViewModel;
 
         private appbar.ABEdge _appbarEdge = appbar.ABEdge.None;
@@ -25,6 +27,12 @@ namespace Cajetan.Infobar
         public MainWindow()
         {
             InitializeComponent();
+
+            Loaded += OnLoaded;
+            SizeChanged += OnSizeChanged;
+#if DEBUG
+            KeyDown += OnKeyDown;
+#endif
         }
 
         public void DockBottom()
@@ -85,10 +93,8 @@ namespace Cajetan.Infobar
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-#if DEBUG
             if (e.Key == Key.Escape)
                 _mainViewModel.Close();
-#endif
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
