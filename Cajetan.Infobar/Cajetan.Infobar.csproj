@@ -21,13 +21,13 @@
     <ProjectReference Include="..\Cajetan.Infobar.Domain\Cajetan.Infobar.Domain.csproj" />
     <ProjectReference Include="..\Cajetan.Infobar.Services\Cajetan.Infobar.Services.csproj" />
     <ProjectReference Include="..\Cajetan.Infobar.ViewModels\Cajetan.Infobar.ViewModels.csproj" />
+    <ProjectReference Include="..\WpfAppBar\WpfAppBar\WpfAppBar.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
-    <PackageReference Include="WpfAppBar" Version="3.0.0" />
     <PackageReference Include="TAlex.WPF.Controls" Version="3.0.2" />
     <PackageReference Include="FontAwesome5" Version="2.0.8" />
   </ItemGroup>
