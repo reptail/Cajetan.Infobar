@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Config;
+using Cajetan.Infobar.Config;
 using Serilog;
 using System;
 using System.Runtime.ExceptionServices;
@@ -23,6 +23,8 @@ namespace Cajetan.Infobar
                 Log.Error("Unhandled Exception, but Exception object was NULL!");
             else
                 Log.Fatal(e.Exception, "Unhandled Exception! {ExceptionMessage:l}", e.Exception.Message);
+
+            Shutdown();
         }
 
         private void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)

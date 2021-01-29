@@ -1,4 +1,4 @@
-﻿using Cajetan.Infobar.Config;
+using Cajetan.Infobar.Config;
 using Cajetan.Infobar.Domain.AppBar;
 using Cajetan.Infobar.ViewModels;
 using Serilog;
@@ -28,7 +28,6 @@ namespace Cajetan.Infobar
             InitializeComponent();
 
             Loaded += OnLoaded;
-            SizeChanged += OnSizeChanged;
 #if DEBUG
             KeyDown += OnKeyDown;
 #endif
@@ -93,24 +92,6 @@ namespace Cajetan.Infobar
         {
             if (e.Key == Key.Escape)
                 _mainViewModel.Close();
-        }
-
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            ILogger logger = AutofacConfig.Resolve<ILogger>();
-
-            string widthChanged = e.WidthChanged ? "T" : "F";
-            string heightChanged = e.HeightChanged ? "T" : "F";
-            logger?.Information(
-                "Size Changed | W: {NewWidth,4:###0} ({WidthChanged:l}) | H: {NewHeight,4:###0} ({HeightChanged:l})",
-                e.NewSize.Width, widthChanged,
-                e.NewSize.Height, heightChanged
-            );
-
-            if (e.NewSize.Width <= 0)
-                logger?.Error("New Width {NewWidth} was Invalid!", e.NewSize.Width);
-            if (e.NewSize.Height <= 0)
-                logger?.Error("New Height {NewHeight} was Invalid!", e.NewSize.Height);
         }
 
         [Flags]
