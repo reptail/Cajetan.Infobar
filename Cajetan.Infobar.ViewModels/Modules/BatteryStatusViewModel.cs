@@ -63,6 +63,7 @@ namespace Cajetan.Infobar.ViewModels
                     break;
 
                 case EBatteryChargeState.FullyCharged:
+                case EBatteryChargeState.Charging when info.Percentage == 100d:
                     Status = percentage;
                     break;
 

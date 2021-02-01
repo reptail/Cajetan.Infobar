@@ -155,7 +155,7 @@ namespace Cajetan.Infobar.Services
                     State = battery.BatteryStatus switch
                     {
                         1 => EBatteryChargeState.Discharging,
-                        2 => EBatteryChargeState.FullyCharged,
+                        2 => EBatteryChargeState.Charging,
                         3 => EBatteryChargeState.FullyCharged,
                         4 => EBatteryChargeState.Discharging,
                         5 => EBatteryChargeState.Discharging,
