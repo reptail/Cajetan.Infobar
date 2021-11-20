@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
     <PublishReadyToRun>true</PublishReadyToRun>
@@ -16,7 +16,7 @@
     <Description>AppBar showing system information like CPU, RAM and Network usages.</Description>
     <Version>2.0.4</Version>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\Cajetan.Infobar.Domain\Cajetan.Infobar.Domain.csproj" />
     <ProjectReference Include="..\Cajetan.Infobar.Services\Cajetan.Infobar.Services.csproj" />
@@ -33,35 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Icons\infobar-icon.ico" />
-    <Resource Include="Resources\Images\16\battery_16.png" />
-    <Resource Include="Resources\Images\16\battery_charging_16.png" />
-    <Resource Include="Resources\Images\16\cpu_16.png" />
-    <Resource Include="Resources\Images\16\memory_16.png" />
-    <Resource Include="Resources\Images\16\network_16.png" />
-    <Resource Include="Resources\Images\16\ram2_16.png" />
-    <Resource Include="Resources\Images\16\ram_16.png" />
-    <Resource Include="Resources\Images\16\uptime_16.png" />
-    <Resource Include="Resources\Images\24\battery_24.png" />
-    <Resource Include="Resources\Images\24\battery_charging_24.png" />
-    <Resource Include="Resources\Images\24\cpu_24.png" />
-    <Resource Include="Resources\Images\24\memory_24.png" />
-    <Resource Include="Resources\Images\24\network_24.png" />
-    <Resource Include="Resources\Images\24\ram_24.png" />
-    <Resource Include="Resources\Images\24\uptime_24.png" />
-    <Resource Include="Resources\Images\64\battery_64.png" />
-    <Resource Include="Resources\Images\64\battery_charging_64.png" />
-    <Resource Include="Resources\Images\64\cpu_64.png" />
-    <Resource Include="Resources\Images\64\memory_64.png" />
-    <Resource Include="Resources\Images\64\network_64.png" />
-    <Resource Include="Resources\Images\64\ram2_64.png" />
-    <Resource Include="Resources\Images\64\ram_64.png" />
-    <Resource Include="Resources\Images\64\uptime_64.png" />
-    <Resource Include="Resources\Images\black_down_8.png" />
-    <Resource Include="Resources\Images\black_up_8.png" />
-    <Resource Include="Resources\Images\empty.png" />
-    <Resource Include="Resources\Images\gray_down_8.png" />
-    <Resource Include="Resources\Images\gray_up_8.png" />
+    <Resource Include="Resources\**\*.ico" />
+    <Resource Include="Resources\**\*.png" />
   </ItemGroup>
 
 </Project>
