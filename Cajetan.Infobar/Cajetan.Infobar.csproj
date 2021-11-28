@@ -4,9 +4,6 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PublishSingleFile>true</PublishSingleFile>
-    <PublishReadyToRun>true</PublishReadyToRun>
-    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Icons\infobar-icon.ico</ApplicationIcon>
   </PropertyGroup>
@@ -14,9 +11,15 @@
   <PropertyGroup>
     <Title>Cajetan Infobar</Title>
     <Description>AppBar showing system information like CPU, RAM and Network usages.</Description>
-    <Version>2.0.4</Version>
+    <Version>2.1.0</Version>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Cajetan.Infobar.Domain\Cajetan.Infobar.Domain.csproj" />
     <ProjectReference Include="..\Cajetan.Infobar.Services\Cajetan.Infobar.Services.csproj" />
