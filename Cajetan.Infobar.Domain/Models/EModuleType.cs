@@ -8,6 +8,7 @@
         MemoryUsage,
         NetworkUsage,
         ProcessorUsage,
-        Uptime
+        Uptime,
+        StarshipInfo
     }
 }

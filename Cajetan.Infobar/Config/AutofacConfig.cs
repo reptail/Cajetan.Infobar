@@ -86,6 +86,9 @@ namespace Cajetan.Infobar.Config
             cb.RegisterType<SystemMonitorService>()
                 .As<ISystemMonitorService>()
                 .SingleInstance();
+            cb.RegisterType<StarshipInfoService>()
+                .As<IStarshipInfoService>()
+                .SingleInstance();
         }
 
     }

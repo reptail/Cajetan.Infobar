@@ -30,5 +30,8 @@
         public const string UPTIME_SORT_ORDER = "Module_Uptime_SortOrder";
         public const string UPTIME_SHOW_TEXT  = "Module_Uptime_ShowText";
         public const string UPTIME_SHOW_DAYS  = "Module_Uptime_ShowDays";
+
+        public const string STARSHIP_INFO_IS_ENABLED = "Module_StarshipInfo_IsEnabled";
+        public const string STARSHIP_INFO_LAUNCH_ID = "Module_StarshipInfo_LaunchId";
     }
 }

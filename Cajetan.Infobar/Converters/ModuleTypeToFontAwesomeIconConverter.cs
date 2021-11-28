@@ -20,6 +20,7 @@ namespace Cajetan.Infobar.Converters
                 EModuleType.ProcessorUsage => EFontAwesomeIcon.Solid_Microchip,
                 EModuleType.MemoryUsage => EFontAwesomeIcon.Solid_Memory,
                 EModuleType.NetworkUsage => EFontAwesomeIcon.Solid_NetworkWired,
+                EModuleType.StarshipInfo => EFontAwesomeIcon.Solid_Rocket,
                 _ => EFontAwesomeIcon.Solid_Question
             };
         }
