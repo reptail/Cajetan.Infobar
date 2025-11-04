@@ -82,6 +82,9 @@ public partial class MainWindow : Window, IAppBarController
             w.DragMove();
         };
 #else
+        Top = 10;
+        Left = 10;
+        Width = 0;
         _mainViewModel.Dock();
 #endif
     }
