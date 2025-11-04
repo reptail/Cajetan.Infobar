@@ -1,15 +1,14 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace Cajetan.Infobar.Views
+namespace Cajetan.Infobar.Views;
+
+/// <summary>
+/// Interaction logic for MemoryUsageOptionsView.xaml
+/// </summary>
+public partial class MemoryUsageOptionsView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for MemoryUsageOptionsView.xaml
-    /// </summary>
-    public partial class MemoryUsageOptionsView : UserControl
+    public MemoryUsageOptionsView()
     {
-        public MemoryUsageOptionsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

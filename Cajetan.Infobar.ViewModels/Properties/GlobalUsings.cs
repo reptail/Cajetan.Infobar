@@ -1,0 +1,13 @@
+global using Cajetan.Infobar.Domain.AppBar;
+global using Cajetan.Infobar.Domain.Models;
+global using Cajetan.Infobar.Domain.Services;
+global using Cajetan.Infobar.Domain.ViewModels;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using System;
+global using System.Linq;
+global using System.Collections.Generic;
+global using System.Collections.ObjectModel;
+global using System.Timers;
+global using System.Windows.Input;
+global using Timer = System.Timers.Timer;

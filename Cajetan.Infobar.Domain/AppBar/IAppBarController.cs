@@ -1,10 +1,9 @@
-﻿namespace Cajetan.Infobar.Domain.AppBar
+namespace Cajetan.Infobar.Domain.AppBar;
+
+public interface IAppBarController
 {
-    public interface IAppBarController
-    {
-        void DockBottom();
-        void Undock();
-        void Reset();
-        void Shutdown();
-    }
+    void DockBottom();
+    void Undock();
+    void Reset();
+    void Shutdown();
 }

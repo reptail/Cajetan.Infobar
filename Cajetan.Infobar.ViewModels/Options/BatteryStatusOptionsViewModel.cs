@@ -1,54 +1,49 @@
-﻿using Cajetan.Infobar.Domain.Models;
-using Cajetan.Infobar.Domain.Services;
+namespace Cajetan.Infobar.ViewModels;
 
-namespace Cajetan.Infobar.ViewModels
+public class BatteryStatusOptionsViewModel : ModuleOptionsViewModelBase
 {
-    public class BatteryStatusOptionsViewModel : ModuleOptionsViewModelBase
+    private readonly ISettingsService _settingsService;
+
+    private bool _showTime;
+
+    public BatteryStatusOptionsViewModel(ISettingsService settingsService)
     {
-        private readonly ISettingsService _settingsService;
+        _settingsService = settingsService;
 
-        private bool _showTime;
+        DisplayName = "Battery Status";
+        Description = "Shows the battery charge in percentage.";
 
-        public BatteryStatusOptionsViewModel(ISettingsService settingsService)
-        {
-            _settingsService = settingsService;
+        ShowTime = true;
+    }
 
-            DisplayName = "Battery Status";
-            Description = "Shows the battery charge in percentage.";
+    public override EModuleType ModuleType => EModuleType.BatteryStatus;
 
+    public bool ShowTime
+    {
+        get => _showTime;
+        set => SetProperty(ref _showTime, value);
+    }
 
-            ShowTime = true;
-        }
+    public override void Update()
+    {
+        if (_settingsService.TryGet(SettingsKeys.BATTERY_IS_ENABLED, out bool isEnabled))
+            IsEnabled = isEnabled;
 
-        public override EModuleType ModuleType => EModuleType.BatteryStatus;
+        if (_settingsService.TryGet(SettingsKeys.BATTERY_SORT_ORDER, out int sortOrder))
+            SortOrder = sortOrder;
 
-        public bool ShowTime
-        {
-            get => _showTime;
-            set => SetProperty(ref _showTime, value);
-        }
+        if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TEXT, out bool showText))
+            ShowText = showText;
 
-        public override void Update()
-        {
-            if (_settingsService.TryGet(SettingsKeys.BATTERY_IS_ENABLED, out bool isEnabled))
-                IsEnabled = isEnabled;
+        if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TIME, out bool showTime))
+            ShowTime = showTime;
+    }
 
-            if (_settingsService.TryGet(SettingsKeys.BATTERY_SORT_ORDER, out int sortOrder))
-                SortOrder = sortOrder;
-
-            if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TEXT, out bool showText))
-                ShowText = showText;
-
-            if (_settingsService.TryGet(SettingsKeys.BATTERY_SHOW_TIME, out bool showTime))
-                ShowTime = showTime;
-        }
-
-        public override void Save()
-        {
-            _settingsService.Set(SettingsKeys.BATTERY_IS_ENABLED, IsEnabled);
-            _settingsService.Set(SettingsKeys.BATTERY_SORT_ORDER, SortOrder);
-            _settingsService.Set(SettingsKeys.BATTERY_SHOW_TEXT, ShowText);
-            _settingsService.Set(SettingsKeys.BATTERY_SHOW_TIME, ShowTime);
-        }
+    public override void Save()
+    {
+        _settingsService.Set(SettingsKeys.BATTERY_IS_ENABLED, IsEnabled);
+        _settingsService.Set(SettingsKeys.BATTERY_SORT_ORDER, SortOrder);
+        _settingsService.Set(SettingsKeys.BATTERY_SHOW_TEXT, ShowText);
+        _settingsService.Set(SettingsKeys.BATTERY_SHOW_TIME, ShowTime);
     }
 }

@@ -1,15 +1,14 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace Cajetan.Infobar.Views
+namespace Cajetan.Infobar.Views;
+
+/// <summary>
+/// Interaction logic for ProcessorUsageOptionsView.xaml
+/// </summary>
+public partial class ProcessorUsageOptionsView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for ProcessorUsageOptionsView.xaml
-    /// </summary>
-    public partial class ProcessorUsageOptionsView : UserControl
+    public ProcessorUsageOptionsView()
     {
-        public ProcessorUsageOptionsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

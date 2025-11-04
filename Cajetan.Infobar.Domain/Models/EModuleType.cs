@@ -1,13 +1,12 @@
-﻿namespace Cajetan.Infobar.Domain.Models
-{
-    public enum EModuleType
-    {
-        Unknown,
+namespace Cajetan.Infobar.Domain.Models;
 
-        BatteryStatus,
-        MemoryUsage,
-        NetworkUsage,
-        ProcessorUsage,
-        Uptime
-    }
+public enum EModuleType
+{
+    Unknown,
+
+    BatteryStatus,
+    MemoryUsage,
+    NetworkUsage,
+    ProcessorUsage,
+    Uptime
 }

@@ -1,15 +1,14 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace Cajetan.Infobar.Views
+namespace Cajetan.Infobar.Views;
+
+/// <summary>
+/// Interaction logic for NetworkUsageOptionsView.xaml
+/// </summary>
+public partial class NetworkUsageOptionsView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for NetworkUsageOptionsView.xaml
-    /// </summary>
-    public partial class NetworkUsageOptionsView : UserControl
+    public NetworkUsageOptionsView()
     {
-        public NetworkUsageOptionsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

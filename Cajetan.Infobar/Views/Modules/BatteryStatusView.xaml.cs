@@ -1,15 +1,14 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace Cajetan.Infobar.Views
+namespace Cajetan.Infobar.Views;
+
+/// <summary>
+/// Interaction logic for BatteryStatusView.xaml
+/// </summary>
+public partial class BatteryStatusView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for BatteryStatusView.xaml
-    /// </summary>
-    public partial class BatteryStatusView : UserControl
+    public BatteryStatusView()
     {
-        public BatteryStatusView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

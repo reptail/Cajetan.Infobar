@@ -4,67 +4,66 @@ using System;
 using System.Runtime.ExceptionServices;
 using System.Windows;
 
-namespace Cajetan.Infobar
+namespace Cajetan.Infobar;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public App()
     {
-        public App()
+        AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+        DispatcherUnhandledException += App_DispatcherUnhandledException;
+    }
+
+    private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    {
+        if (e?.Exception is null)
+            Log.Error("Unhandled Exception, but Exception object was NULL!");
+        else
+            Log.Fatal(e.Exception, "Unhandled Exception! {ExceptionMessage:l}", e.Exception.Message);
+
+        Shutdown();
+    }
+
+    private void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+    {
+        if (e?.Exception is null) return;
+
+        Log.Debug(e.Exception, "First Change Exception: {ExceptionMessage:l}", e.Exception.Message);
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+
+        Microsoft.Win32.SystemEvents.SessionEnding += SystemEvents_SessionEnding;
+
+        MainWindow mainWindow = new();
+        Current.MainWindow = mainWindow;
+
+        AutofacConfig.Initialize(mainWindow);
+
+        mainWindow.Show();
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        try
         {
-            AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
-            DispatcherUnhandledException += App_DispatcherUnhandledException;
+            AutofacConfig.Dispose();
+        }
+        finally
+        {
+            Microsoft.Win32.SystemEvents.SessionEnding -= SystemEvents_SessionEnding;
         }
 
-        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            if (e?.Exception is null)
-                Log.Error("Unhandled Exception, but Exception object was NULL!");
-            else
-                Log.Fatal(e.Exception, "Unhandled Exception! {ExceptionMessage:l}", e.Exception.Message);
+        base.OnExit(e);
+    }
 
-            Shutdown();
-        }
-
-        private void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
-        {
-            if (e?.Exception is null) return;
-
-            Log.Debug(e.Exception, "First Change Exception: {ExceptionMessage:l}", e.Exception.Message);
-        }
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-
-            Microsoft.Win32.SystemEvents.SessionEnding += SystemEvents_SessionEnding;
-
-            MainWindow mainWindow = new MainWindow();
-            Current.MainWindow = mainWindow;
-
-            AutofacConfig.Initialize(mainWindow);
-
-            mainWindow.Show();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            try
-            {
-                AutofacConfig.Dispose();
-            }
-            finally
-            {
-                Microsoft.Win32.SystemEvents.SessionEnding -= SystemEvents_SessionEnding;
-            }
-
-            base.OnExit(e);
-        }
-
-        private void SystemEvents_SessionEnding(object sender, Microsoft.Win32.SessionEndingEventArgs e)
-        {
-            Shutdown();
-        }
+    private void SystemEvents_SessionEnding(object sender, Microsoft.Win32.SessionEndingEventArgs e)
+    {
+        Shutdown();
     }
 }

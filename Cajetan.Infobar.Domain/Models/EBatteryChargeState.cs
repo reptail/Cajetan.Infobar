@@ -1,11 +1,10 @@
-﻿namespace Cajetan.Infobar.Domain.Models
+namespace Cajetan.Infobar.Domain.Models;
+
+public enum EBatteryChargeState
 {
-    public enum EBatteryChargeState
-    {
-        Unknown,
-        NoBattery,
-        Charging,
-        Discharging,
-        FullyCharged
-    }
+    Unknown,
+    NoBattery,
+    Charging,
+    Discharging,
+    FullyCharged
 }

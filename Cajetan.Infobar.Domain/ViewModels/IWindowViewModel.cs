@@ -1,7 +1,6 @@
-﻿namespace Cajetan.Infobar.Domain.ViewModels
+namespace Cajetan.Infobar.Domain.ViewModels;
+
+public interface IWindowViewModel
 {
-    public interface IWindowViewModel
-    {
-        string DisplayName { get; }
-    }
+    string DisplayName { get; }
 }

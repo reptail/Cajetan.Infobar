@@ -1,16 +1,14 @@
-﻿using Cajetan.Infobar.Domain.Models;
-using System;
+using Cajetan.Infobar.Domain.Models;
 
-namespace Cajetan.Infobar.Domain.Services
+namespace Cajetan.Infobar.Domain.Services;
+
+public interface ISystemMonitorService : IDisposable
 {
-    public interface ISystemMonitorService : IDisposable
-    {
-        ISysInfo Info { get; }
-        IBatteryInfo Battery { get; }
-        IProcessorInfo Processor { get; }
-        IMemoryInfo Memory { get; }
-        INetworkInfo Network { get; }
+    ISysInfo Info { get; }
+    IBatteryInfo Battery { get; }
+    IProcessorInfo Processor { get; }
+    IMemoryInfo Memory { get; }
+    INetworkInfo Network { get; }
 
-        void Update();
-    }
+    void Update();
 }

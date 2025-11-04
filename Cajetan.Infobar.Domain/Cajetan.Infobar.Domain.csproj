@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <LangVersion>13.0</LangVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>9</LangVersion>
+    <NoWarn>$(NoWarn);NU1900</NoWarn>
   </PropertyGroup>
 
 </Project>

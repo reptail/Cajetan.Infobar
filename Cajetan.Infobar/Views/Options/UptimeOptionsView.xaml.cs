@@ -1,15 +1,14 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace Cajetan.Infobar.Views
+namespace Cajetan.Infobar.Views;
+
+/// <summary>
+/// Interaction logic for UptimeOptionsView.xaml
+/// </summary>
+public partial class UptimeOptionsView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for UptimeOptionsView.xaml
-    /// </summary>
-    public partial class UptimeOptionsView : UserControl
+    public UptimeOptionsView()
     {
-        public UptimeOptionsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

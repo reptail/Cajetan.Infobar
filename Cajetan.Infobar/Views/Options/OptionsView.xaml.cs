@@ -1,15 +1,14 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace Cajetan.Infobar.Views
+namespace Cajetan.Infobar.Views;
+
+/// <summary>
+/// Interaction logic for OptionsView.xaml
+/// </summary>
+public partial class OptionsView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for OptionsView.xaml
-    /// </summary>
-    public partial class OptionsView : UserControl
+    public OptionsView()
     {
-        public OptionsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

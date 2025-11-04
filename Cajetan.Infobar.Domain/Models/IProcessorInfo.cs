@@ -1,7 +1,6 @@
-﻿namespace Cajetan.Infobar.Domain.Models
+namespace Cajetan.Infobar.Domain.Models;
+
+public interface IProcessorInfo : IUpdatableInfo
 {
-    public interface IProcessorInfo : IUpdatableInfo
-    {
-        double Percentage { get; }
-    }
+    double Percentage { get; }
 }

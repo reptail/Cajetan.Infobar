@@ -1,9 +1,6 @@
-﻿using System;
+namespace Cajetan.Infobar.Domain.Models;
 
-namespace Cajetan.Infobar.Domain.Models
+public interface ISysInfo : IUpdatableInfo
 {
-    public interface ISysInfo : IUpdatableInfo
-    {
-        TimeSpan Uptime { get; }
-    }
+    TimeSpan Uptime { get; }
 }
